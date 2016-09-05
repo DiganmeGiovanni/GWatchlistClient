@@ -1,0 +1,10 @@
+
+.landing-container {
+  background: rgba(0, 0, 0, 0.4);
+  color: #EEE;
+}
+
+.landing-jumbotron {
+  background-image: url('https://hd.unsplash.com/23/level-up.JPG');
+  margin-bottom: 0px;
+}
