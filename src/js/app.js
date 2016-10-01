@@ -2,10 +2,9 @@
 var React    = require('react')
 var ReactDOM = require('react-dom')
 
-//var GWatchlistApp = require('./components/GWatchlistApp.react')
-let LandingPage = require('./components/LandingPage.react')
+let GWatchlistApp = require('./components/GWatchlistApp.react')
 
 ReactDOM.render(
-  <LandingPage/>,
+  <GWatchlistApp/>,
   document.getElementById('gwatchlist-app-container')
 )

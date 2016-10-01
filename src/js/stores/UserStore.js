@@ -22,7 +22,7 @@ var UserStore = objectAssign({}, EventEmitter.prototype, {
     var self = this
 
     userService.loginUser(name, email, function (err, body) {
-      if(err) {
+      if (err) {
         console.error('Error login user on backend (' + email + ')')
         console.error(err)
       }
@@ -32,7 +32,7 @@ var UserStore = objectAssign({}, EventEmitter.prototype, {
         self.emitChange()
 
         // Retrieve user personal list from backend
-        ToWatchStore.fetchPersonalList()
+        //ToWatchStore.fetchPersonalList()
       }
     })
   },

@@ -4,38 +4,38 @@ module.exports = {
   //
   // To watch actions names
   //
-  TOWATCH_FETCH_ALL: "towatch-fetch-allmovies",
-  TOWATCH_FETCH_LIST: "towatch-fetch-list",
-  TOWATCH_FETCH_LISTS_WITHOUT_CONTENTS: "towatch-fetch-lists-nocontents",
-  TOWATCH_ADD_TO_CURR_LIST: "towatch-addMovieToCurrentList",
-  TOWATCH_DESTROY: "towatch-destroy",
-  TOWATCH_DESTROY_COMPLETED: "towatch-destroy-completed",
-  TOWATCH_MARK_AS_SEEN: "towatch-mark-as-seen",
-  TOWATCH_MARK_AS_NOTSEEN: "towatch-mark-as-notseen",
-  TOWATCH_SHARE_CURR_LIST: "towatch-share-curr-list",
-  TOWATCH_UPDATE: "towatch-update",
+  TOWATCH_FETCH_ALL: 'towatch-fetch-allmovies',
+  TOWATCH_FETCH_LIST: 'towatch-fetch-list',
+  TOWATCH_FETCH_LISTS_WITHOUT_CONTENTS: 'towatch-fetch-lists-nocontents',
+  TOWATCH_ADD_TO_CURR_LIST: 'towatch-addMovieToCurrentList',
+  TOWATCH_DESTROY: 'towatch-destroy',
+  TOWATCH_DESTROY_COMPLETED: 'towatch-destroy-completed',
+  TOWATCH_MARK_AS_SEEN: 'towatch-mark-as-seen',
+  TOWATCH_MARK_AS_NOTSEEN: 'towatch-mark-as-notseen',
+  TOWATCH_SHARE_CURR_LIST: 'towatch-share-curr-list',
+  TOWATCH_UPDATE: 'towatch-update',
 
-  TOWATCH_CREATE_LIST: "towatch-create-list",
-  TOWATCH_DELETE_CURR_LIST: "towatch_delete_curr_list",
+  TOWATCH_CREATE_LIST: 'towatch-create-list',
+  TOWATCH_DELETE_CURR_LIST: 'towatch_delete_curr_list',
 
 
   //
   // User actions names
   //
-  USER_LOGIN: "user_login",
-  USER_LOGOUT: "user-logout",
-  USER_UPLOAD_PREFERENCES: "user_upload_preferences",
+  USER_LOGIN: 'user_login',
+  USER_LOGOUT: 'user-logout',
+  USER_UPLOAD_PREFERENCES: 'user_upload_preferences',
 
   //
   // API Info
   //
-  API_URL: "http://localhost:8080/api/", // TODO Replace with online api
-  //API_URL: "http://movies-to-watch.appspot.com/api/",
+  API_URL: 'http://localhost:8080/api/', // TODO Replace with online api
+  //API_URL: 'http://movies-to-watch.appspot.com/api/',
 
   //
   // Google APIs urls
   //
-  GO_YTB_API_KEY: 'AIzaSyACtAHkPMNOT8nIbqyfKPnhfdA8YmY5HW0',
+  GO_YTB_API_KEY: 'AIzaSyCD3NtxW7QDae30M7pOHmC991x0hI7I2wg',
   GO_YTB_API_URL_SEARCH: 'https://www.googleapis.com/youtube/v3/search',
 
   //
@@ -54,6 +54,7 @@ module.exports = {
   //
   userData: {
     name: '',
-    email: ''
+    email: '',
+    preferences: {}
   }
 }

@@ -12,16 +12,22 @@ var alertify         = require('alertify.js')()
 var ToWatchConstants = require('../constants/toWatchConstants')
 var movieListService = require('../services/movieListService')
 
-/*****************************************************************************/
+////////////////////////////////////////////////////////////////////////////////
 
 var EVENT_CHANGE = 'event-change'
 var listsWithoutContent = []
 var currentList = {
-  idDatastore: 0,
-  isPersonalList: true,
-  ownerEmail: '',
-  movies: [],
-  sharedWith: []
+  id:           0,
+  name:         "Personal list",
+  createdAt:    1474756737903,
+  sharedWith:   [],
+  ownerEmail:   "",
+  movies:       [
+    {
+      watched: false
+    }
+  ],
+  personalList: true
 }
 
 // Alertify setup
@@ -36,16 +42,17 @@ var ToWatchStore = objAssign({}, EventEmitter.prototype, {
   },
 
   areCurrentListAllWatched: function() {
-    var allComplete = true;
+    var areAllWatched = true;
     var movies = currentList.movies
 
     for(var i=0; i<movies.length; i++) {
-      if(!movies[i].isWatched) {
-        allComplete = false
+      if(!movies[i].watched) {
+        areAllWatched = false
+        break
       }
     }
 
-    return allComplete
+    return areAllWatched
   },
 
   createList: function (listName, email) {
@@ -215,6 +222,7 @@ var ToWatchStore = objAssign({}, EventEmitter.prototype, {
         }
         else {
           body = JSON.parse(body)
+          console.log(body)
           currentList = body
 
           self.emitChange()
