@@ -39,7 +39,7 @@ module.exports = {
         q: movieTitle + ' Official Trailer',
         type: 'video',
         key: ToWatchConstants.GO_YTB_API_KEY
-      }
+      },
     }
 
     request(params, function (err, res, body) {

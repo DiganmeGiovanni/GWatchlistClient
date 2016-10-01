@@ -4,7 +4,7 @@ var ToWatchConstants = require('../constants/toWatchConstants')
 
 /******************************************************************************/
 
-var API_URL = ToWatchConstants.API_URL + "users/"
+var API_URL = ToWatchConstants.API_URL + "user/"
 
 module.exports = {
 
@@ -16,7 +16,8 @@ module.exports = {
       qs: {
         name: name,
         email: email
-      }
+      },
+      withCredentials: false
     }
 
     request(params, function (err, res, body) {
@@ -27,11 +28,11 @@ module.exports = {
   uploadUserPreferences: function (callback) {
     var params = {
       method: 'POST',
-      url: API_URL + "updatepreferences",
+      url: API_URL + "preferences",
       form: {
         email: ToWatchConstants.userData.email,
-        notifyOnListAddition: ToWatchConstants.userData.preferences.notifyOnListAddition,
-        notifyOnListMovieAddition: ToWatchConstants.userData.preferences.notifyOnListMovieAddition,
+        notifyOnListShared: ToWatchConstants.userData.preferences.notifyOnListShared,
+        notifyOnMovieAdded: ToWatchConstants.userData.preferences.notifyOnMovieAdded,
         theme: ToWatchConstants.userData.preferences.theme
       }
     }

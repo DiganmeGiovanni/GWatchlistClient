@@ -4,7 +4,7 @@ var ToWatchConstants = require('../constants/toWatchConstants')
 
 /******************************************************************************/
 
-var API_URL = ToWatchConstants.API_URL + "movieslists/"
+var API_URL = ToWatchConstants.API_URL + "movies/"
 
 module.exports = {
 
@@ -65,9 +65,9 @@ module.exports = {
 
     var params = {
       method: 'GET',
-      url: API_URL + "personallist",
+      url: API_URL + "list/personal",
       qs: {
-        email: email
+        owner_email: email
       }
     }
 

@@ -11,7 +11,8 @@ var tmdbService = {
       qs: {
         api_key: ToWatchConstants.TMDB_API_KEY,
         append_to_response: 'credits'
-      }
+      },
+      withCredentials: false
     }
 
     request(params, function (err, resp, body) {
@@ -27,7 +28,8 @@ var tmdbService = {
       qs: {
         api_key: ToWatchConstants.TMDB_API_KEY,
         query: qryTerm
-      }
+      },
+      withCredentials: false
     }
 
     request(params, function (err, resp, body) {
