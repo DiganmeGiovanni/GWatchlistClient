@@ -1,6 +1,17 @@
 
+@import 'https://fonts.googleapis.com/css?family=Roboto+Condensed';
+
+h1 {
+  font-family: 'Roboto Condensed';
+  font-weight: bold;
+}
+
+.g-signin2-custom > div {
+  margin: auto;
+}
+
 .landing-container {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.7);
   color: #EEE;
 }
 

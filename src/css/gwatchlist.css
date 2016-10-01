@@ -16,3 +16,172 @@ h1, h2 {
   font-weight: bold;
   text-transform: uppercase;
 }
+
+.btn-fab {
+  border-radius: 50% !important;
+  bottom: 20px;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  height: 56px;
+  max-height: 56px;
+  min-height: 56px;
+  padding: 10px 2%;
+  position: fixed;
+  right: 20px;
+  width: 56px;
+  z-index: 2;
+}
+
+.card-towatch-item {
+  padding-bottom: 15px;
+  padding-top: 30px;
+}
+
+.card-towatch-item-image-container {
+  width: 100%;
+}
+
+.card-result {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding-right: 5px;
+}
+
+.card-result-bottom-buttons {
+  position: absolute;
+  bottom: 0px;
+  padding: 17px 17px 8px;
+  right: 0px
+}
+
+.grayscaled-image {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+}
+
+.movie-search-result-card-content {
+  max-height: 135px;
+  min-height: 135px;
+}
+
+.movie-search-result-card-image {
+  padding-right: 5px;
+  width: 100px;
+}
+
+.top-bar {
+  height: 55px;
+  left: 0;
+  max-height: 55px;
+  min-height: 55px;
+  padding: 10px 2%;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.trailer-chooser-result-image {
+  margin-right: 10px;
+}
+
+
+
+/******************************************************************************/
+/******************************************************************************/
+
+.full-width {
+  width: 100%;
+}
+
+.hidden-overflow {
+  overflow: hidden;
+}
+
+.no-margin {
+  margin: 0px;
+}
+
+.no-padding-horizontal {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.no-padding-left {
+  padding-left: 0px;
+}
+
+.no-padding-right {
+  padding-right: 0px;
+}
+
+.no-padding-vertical {
+  padding-bottom: 0px;
+  padding-top: 0px;
+}
+
+.g-signin2-custom > div {
+  margin: auto;
+}
+
+
+/*****************************************************************************/
+
+/** Ultra small device start point */
+@media (min-width: 375px) {
+  .movie-search-result-card-image {
+    width: 120px;
+  }
+
+  .movie-search-result-card-content {
+    max-height: 172px;
+    min-height: 172px;
+  }
+}
+
+/** Small devices start point */
+@media (min-width: 758px) {
+  .card-towatch-item {
+    padding-top: 0px;
+  }
+
+  .movie-search-result-card-content {
+    min-height: 203px;
+    max-height: 203px;
+  }
+
+  .movie-search-result-card-image {
+    width: 140px;
+  }
+}
+
+/* Extra large devices start point */
+@media (min-width: 971px) {
+
+  .no-padding-on-small {
+    padding-top: 20px;
+  }
+}
+
+
+/*****************************************************************************/
+
+/** Extra small devices */
+@media (max-width: 767px) {
+  .modal-dialog {
+    margin: 0px;
+  }
+}
+
+/* Small devices */
+@media (max-width: 991px) {
+
+}
+
+/* Large devices */
+@media (max-width: 970px) {
+
+  .no-padding-on-small {
+    padding: 0px;
+  }
+}
+
