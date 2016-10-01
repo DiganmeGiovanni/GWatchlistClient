@@ -94,8 +94,8 @@ var EditPreferences = React.createClass({
     var notifyOnMovieAdded = document.getElementById('cb-movie-added').checked
     var theme = document.getElementById('theme-chooser').value
 
-    ToWatchConstants.userData.preferences.notifyOnListAddition = notifyOnListShared
-    ToWatchConstants.userData.preferences.notifyOnListMovieAddition = notifyOnMovieAdded
+    ToWatchConstants.userData.preferences.notifyOnListShared = notifyOnListShared
+    ToWatchConstants.userData.preferences.notifyOnMovieAdded = notifyOnMovieAdded
     ToWatchConstants.userData.preferences.theme = theme
 
     UserActions.uploadUserPreferences()
@@ -105,14 +105,14 @@ var EditPreferences = React.createClass({
   _takeValuesFromUserData() {
     var userPreferences = ToWatchConstants.userData.preferences
 
-    if (userPreferences.notifyOnListAddition) {
+    if (userPreferences.notifyOnListShared) {
       document.getElementById('cb-list-shared').checked = true
     }
     else {
       document.getElementById('cb-list-shared').checked = false
     }
 
-    if (userPreferences.notifyOnListMovieAddition) {
+    if (userPreferences.notifyOnMovieAdded) {
       document.getElementById('cb-movie-added').checked = true
     }
     else {

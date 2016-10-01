@@ -7,10 +7,12 @@
 var React     = require('react')
 var WatchList = require('./WatchList.react')
 
-var Toolbar      = require('./Toolbar.react')
-var Welcome      = require('./Welcome.react')
+//var Toolbar      = require('./Toolbar.react')
+import Toolbar from './../toolbar/Toolbar.react'
+var TWConstants = require('../constants/toWatchConstants')
+var LandingPage  = require('./LandingPage.react')
 var ToWatchStore = require('../stores/ToWatchStore')
-var LoginStore   = require('../stores/UserStore')
+var UserStore   = require('../stores/UserStore')
 
 /*****************************************************************************/
 
@@ -18,7 +20,7 @@ function getToWatchState() {
   return {
     areAllWatched: ToWatchStore.areCurrentListAllWatched(),
     currentList: ToWatchStore.getCurrentList(),
-    isUserLogged: LoginStore.isUserLogged(),
+    isUserLogged: UserStore.isUserLogged(),
     listsWithoutContents: ToWatchStore.getListsWithoutContents()
   }
 }
@@ -31,12 +33,12 @@ var ToWatchApp = React.createClass({
 
   componentDidMount: function () {
     ToWatchStore.addChangeListener(this._onChange)
-    LoginStore.addChangeListener(this._onChange)
+    UserStore.addChangeListener(this._onChange)
   },
 
   componentWillUnmount: function () {
     ToWatchStore.removeChangeListener(this._onChange)
-    LoginStore.removeChangeListener(this._onChange)
+    UserStore.removeChangeListener(this._onChange)
   },
 
   _onChange: function () {
@@ -47,24 +49,21 @@ var ToWatchApp = React.createClass({
     if(this.state.isUserLogged) {
       return (
         <div className="container">
-          <Toolbar
-            currentList={this.state.currentList}
-            listsWithoutContents={this.state.listsWithoutContents}
-          />
+          <Toolbar loggedUser={TWConstants.userData}/>
 
-          <div style={{marginTop: '60px'}}>
+          {/*<div style={{marginTop: '60px'}}>
             <WatchList
               areAllWatched={this.state.areAllWatched}
               listName={this.state.currentList.name}
               toWatches={this.state.currentList.movies}
             />
-          </div>
+          </div>*/}
         </div>
       )
     }
     else {
       return (
-        <Welcome />
+        <LandingPage />
       )
     }
   }
