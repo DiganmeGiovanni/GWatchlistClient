@@ -49,7 +49,7 @@ var ToWatchApp = React.createClass({
     if(this.state.isUserLogged) {
       return (
         <div className="container">
-          <Toolbar loggedUser={TWConstants.userData}/>
+          <Toolbar user={TWConstants.userData}/>
 
           {/*<div style={{marginTop: '60px'}}>
             <WatchList

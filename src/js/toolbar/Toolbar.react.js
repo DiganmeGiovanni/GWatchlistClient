@@ -1,12 +1,19 @@
 
 import React, {Component} from 'react'
 
+import ListActions from './../lists/ListsActions'
 import Lists from './../lists/Lists.react'
+
 
 class Toolbar extends Component {
 
   constructor(props) {
     super(props)
+    this.onClickListenerBtnLists = this.onClickListenerBtnLists.bind(this)
+
+    this.state = {
+      loadLists: false
+    }
   }
 
   render() {
@@ -37,8 +44,7 @@ class Toolbar extends Component {
               {/* Lists button */}
               <button
                 className="btn btn-link btn-transparent"
-                data-target="#modal-lists"
-                data-toggle="modal"
+                onClick={this.onClickListenerBtnLists}
                 type="button"
               >
                 <span className="fa fa-list-alt"></span>
@@ -72,9 +78,24 @@ class Toolbar extends Component {
           </div>
 
         {/* Modal for lists */}
-        <Lists loggedUser={this.props.loggedUser} />
+        <Lists
+          loadLists={this.state.loadLists}
+          user={this.props.user}
+        />
       </div>
     )
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+
+  onClickListenerBtnLists() {
+    $('#modal-lists').modal('show')
+
+    this.setState({
+      loadLists: true
+    })
+
+    ListActions.renderLists()
   }
 }
 
