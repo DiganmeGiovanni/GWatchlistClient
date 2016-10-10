@@ -2,7 +2,7 @@
 let LConstans = {
 
   ACTION_FETCH_LISTS_NAMES: 'FETCH_LISTS_NAMES',
-
+  ACTION_POST_LIST: 'ACTION_POST_LIST',
   ACTION_RENDER_CREATE_LIST: 'ACTION_RENDER_CREATE_LIST',
   ACTION_RENDER_LISTS: 'ACTION_RENDER_LISTS',
 
@@ -13,7 +13,10 @@ let LConstans = {
 
 let baseApiUrl = 'http://localhost:8080/api/'
 let apiUrls = {
-  FETCH_LISTS_NAMES: baseApiUrl + 'movies/lists'
+  FETCH_LIST: baseApiUrl + 'movies/list',
+  FETCH_LISTS_NAMES: baseApiUrl + 'movies/lists',
+  POST_LIST: baseApiUrl + 'movies/list',
+  SHARE_LIST: baseApiUrl + 'movies/list/share'
 }
 
 export {apiUrls}

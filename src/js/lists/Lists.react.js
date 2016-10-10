@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 
 import LConstants from './LConstants'
 import ListsActions from './ListsActions'
+import ListContentActions from './../listContents/ListContentActions'
 import ListsStore from './ListsStore'
 import List from './List.react'
 
@@ -11,7 +12,9 @@ class Lists extends Component {
   constructor(props) {
     super(props)
     this._onChange = this._onChange.bind(this)
+    this.onClickListenerBtnGoCreateList = this.onClickListenerBtnGoCreateList.bind(this)
     this.onClickListenerBtnCreateList = this.onClickListenerBtnCreateList.bind(this)
+    this.onListChosen = this.onListChosen.bind(this)
 
     this.state = ListsStore.getState()
   }
@@ -90,7 +93,6 @@ class Lists extends Component {
   }
 
   createCreateListJSX() {
-
     return (
       <div className="row">
         <div className="col-xs-8 col-sm-10">
@@ -98,16 +100,27 @@ class Lists extends Component {
             <label htmlFor="inp-list-name">List name</label>
             <input
               className="form-control"
-              type="text"
+              id="inp-list-name"
               name="listName"
               placeholder="Type a name for your list"
+              type="text"
             />
+            <p
+              id="p-error-list-name"
+              className="alert alert-danger hidden"
+            >
+              Please enter valid name for your list
+            </p>
           </div>
         </div>
         <div className="col-xs-4 col-sm-2 no-padding-left">
           <label>&nbsp;</label>
           <br/>
-          <button className="btn btn-success">
+          <button
+            id="btn-create-list"
+            className="btn btn-success"
+            onClick={this.onClickListenerBtnCreateList}
+          >
             <span className="fa fa-plus"></span>
             <span>&nbsp;&nbsp;Create</span>
           </button>
@@ -143,7 +156,13 @@ class Lists extends Component {
       var listsJSX = []
       for (var i = 0; i < this.state.lists.length; i++) {
         var list = this.state.lists[i]
-        listsJSX.push(<List key={'li-' + i} list={list} />)
+        let listJSX = <List
+          key={'li-' + i}
+          list={list}
+          onListChosen={this.onListChosen}
+        />
+
+        listsJSX.push(listJSX)
       }
 
       return (
@@ -151,7 +170,7 @@ class Lists extends Component {
           <div className="col-xs-12 text-right">
             <button
               className="btn btn-primary"
-              onClick={this.onClickListenerBtnCreateList}
+              onClick={this.onClickListenerBtnGoCreateList}
             >
               <span className="fa fa-th-list"></span>
               <span>&nbsp;&nbsp;Create list</span>
@@ -168,10 +187,31 @@ class Lists extends Component {
     }
   }
 
-  onClickListenerBtnCreateList() {
+  onClickListenerBtnGoCreateList() {
     ListsActions.renderCreateLists()
   }
 
+  onClickListenerBtnCreateList() {
+    $('#p-error-list-name').addClass('hidden');
+
+    let listName = $('#inp-list-name').val()
+    if (listName && listName.trim().length > 0) {
+      let $loadingIcon = $('<span>', {class: 'fa fa-spin fa-spinner'})
+      $('#btn-create-list').html($loadingIcon)
+
+      ListsActions.postList(this.props.user.email, listName)
+    }
+    else {
+      $('#p-error-list-name').removeClass('hidden');
+    }
+  }
+
+  onListChosen(listId) {
+    ListContentActions.fetchList(this.props.user.email, listId)
+
+    // Hide lists modal
+    $('#modal-lists').modal('hide')
+  }
 }
 
 export default Lists

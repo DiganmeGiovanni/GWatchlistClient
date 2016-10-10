@@ -13,7 +13,11 @@ class List extends Component {
     let sharedEmailsJSX = this.getSharedWithJSX()
 
     return (
-      <div className="list-group-item">
+      <div
+        className="list-group-item"
+        onClick={this.props.onListChosen.bind(this, this.props.list.id)}
+        style={{cursor: 'pointer'}}
+      >
         <h4 className="list-group-item-heading">{listName}</h4>
         <p className="list-group-item-text">
           <span className="glyphicon glyphicon-user"></span>

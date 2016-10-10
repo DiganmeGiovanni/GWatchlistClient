@@ -9,6 +9,7 @@ var WatchList = require('./WatchList.react')
 
 //var Toolbar      = require('./Toolbar.react')
 import Toolbar from './../toolbar/Toolbar.react'
+import ListContents from './../listContents/ListContents.react'
 var TWConstants = require('../constants/toWatchConstants')
 var LandingPage  = require('./LandingPage.react')
 var ToWatchStore = require('../stores/ToWatchStore')
@@ -51,13 +52,9 @@ var ToWatchApp = React.createClass({
         <div className="container">
           <Toolbar user={TWConstants.userData}/>
 
-          {/*<div style={{marginTop: '60px'}}>
-            <WatchList
-              areAllWatched={this.state.areAllWatched}
-              listName={this.state.currentList.name}
-              toWatches={this.state.currentList.movies}
-            />
-          </div>*/}
+          <div style={{marginTop: '80px'}}>
+            <ListContents/>
+          </div>
         </div>
       )
     }

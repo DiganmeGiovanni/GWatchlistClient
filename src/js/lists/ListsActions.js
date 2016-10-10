@@ -11,6 +11,14 @@ let ListsActions = {
     })
   },
 
+  postList(ownerEmail, listName) {
+    AppDispatcher.dispatch({
+      type: LConstants.ACTION_POST_LIST,
+      ownerEmail: ownerEmail,
+      listName: listName
+    })
+  },
+
   renderCreateLists() {
     AppDispatcher.dispatch({
       type: LConstants.ACTION_RENDER_CREATE_LIST

@@ -37,7 +37,6 @@ class ListsStore extends EventEmmiter {
   //////////////////////////////////////////////////////////////////////////////
 
   fetchListsNames(email) {
-
     listService.fetchListsNames(email, (err, jResponse) => {
       if (err) {
         console.error(err)
@@ -45,6 +44,20 @@ class ListsStore extends EventEmmiter {
         _state.lists = jResponse
         this.emitChange()
       }
+    })
+  }
+
+  postList(ownerEmail, listName) {
+    listService.postList(ownerEmail, listName, (err, jResponse) => {
+      if (err) {
+        console.error(err)
+        _state.currentView = LConstants.VIEW_LISTS
+      } else {
+        _state.lists = []
+        _state.currentView = LConstants.VIEW_LISTS
+      }
+
+      this.emitChange()
     })
   }
 
@@ -57,6 +70,7 @@ class ListsStore extends EventEmmiter {
     _state.currentView = LConstants.VIEW_LISTS
     this.emitChange()
   }
+
 }
 
 //
@@ -71,6 +85,12 @@ listStore.dispatchToken = AppDispatcher.register(action => {
     case LConstants.ACTION_FETCH_LISTS_NAMES:
       var email = action.email
       listStore.fetchListsNames(email)
+      break
+
+    case LConstants.ACTION_POST_LIST:
+      var ownerEmail = action.ownerEmail
+      var listName = action.listName
+      listStore.postList(ownerEmail, listName)
       break
 
     case LConstants.ACTION_RENDER_CREATE_LIST:

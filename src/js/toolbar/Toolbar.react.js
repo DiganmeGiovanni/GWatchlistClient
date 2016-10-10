@@ -2,13 +2,17 @@
 import React, {Component} from 'react'
 
 import ListActions from './../lists/ListsActions'
+
 import Lists from './../lists/Lists.react'
+import ListShare from './../listShare/ListShare.react'
+import MovieForm from './../movieForm/MovieForm.react'
 
 
 class Toolbar extends Component {
 
   constructor(props) {
     super(props)
+    this.onClickListenerBtnLists = this.onClickListenerBtnLists.bind(this)
     this.onClickListenerBtnLists = this.onClickListenerBtnLists.bind(this)
 
     this.state = {
@@ -30,13 +34,20 @@ class Toolbar extends Component {
             <div className="col-sm-8 text-right" style={{paddingTop: '4px'}}>
 
               {/* Add movie button */}
-              <button className="btn btn-link btn-transparent hidden-xs" type="button">
+              <button
+                className="btn btn-link btn-transparent hidden-xs"
+                onClick={this.onClickListenerBtnAddMovie}
+              >
                 <span className="glyphicon glyphicon-film"></span>
                 <span>&nbsp;&nbsp;ADD MOVIE</span>
               </button>
 
               {/* Share list button */}
-              <button className="btn btn-link btn-transparent" type="button">
+              <button
+                className="btn btn-link btn-transparent"
+                onClick={this.onClickListenerBtnListShare}
+                type="button"
+              >
                 <span className="fa fa-user-plus"></span>
                 <span>&nbsp;&nbsp;SHARE LIST</span>
               </button>
@@ -82,6 +93,12 @@ class Toolbar extends Component {
           loadLists={this.state.loadLists}
           user={this.props.user}
         />
+
+        {/* Modal to share list */}
+        <ListShare />
+
+        {/* Modal to add a movie to list */}
+        <MovieForm />
       </div>
     )
   }
@@ -96,6 +113,14 @@ class Toolbar extends Component {
     })
 
     ListActions.renderLists()
+  }
+
+  onClickListenerBtnListShare() {
+    $('#modal-list-share').modal('show')
+  }
+
+  onClickListenerBtnAddMovie() {
+    $('#modal-movie-form').modal('show')
   }
 }
 
