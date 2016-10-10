@@ -1,5 +1,6 @@
 
 import React from 'react'
+import MovieFormActions from './MovieFormActions'
 import MFConstants from './MFConstants'
 
 let moment = require('moment')
@@ -8,6 +9,7 @@ class SearchTMDBResult extends React.Component {
 
   constructor(props) {
     super(props)
+    this.onMovieChosen = this.onMovieChosen.bind(this)
   }
 
   render() {
@@ -54,7 +56,9 @@ class SearchTMDBResult extends React.Component {
 
                 <div className="text-right card-result-bottom-buttons">
                   <button
-                    className="btn btn-default">
+                    className="btn btn-default"
+                    onClick={this.onMovieChosen}
+                  >
                     <span className="glyphicon glyphicon-film"></span>
                     <span>&nbsp;&nbsp;Add movie</span>
                   </button>
@@ -70,7 +74,7 @@ class SearchTMDBResult extends React.Component {
   //////////////////////////////////////////////////////////////////////////////
 
   onMovieChosen() {
-
+    MovieFormActions.displayMovieDetails(this.props.result)
   }
 }
 

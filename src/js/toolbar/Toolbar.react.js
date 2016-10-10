@@ -2,6 +2,7 @@
 import React, {Component} from 'react'
 
 import ListActions from './../lists/ListsActions'
+import MovieFormActions from './../movieForm/MovieFormActions'
 
 import Lists from './../lists/Lists.react'
 import ListShare from './../listShare/ListShare.react'
@@ -120,6 +121,7 @@ class Toolbar extends Component {
   }
 
   onClickListenerBtnAddMovie() {
+    MovieFormActions.startAddProcess()
     $('#modal-movie-form').modal('show')
   }
 }
