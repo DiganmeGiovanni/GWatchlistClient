@@ -15,7 +15,9 @@ let baseApiUrl = 'http://localhost:8080/api/'
 let apiUrls = {
   FETCH_LIST: baseApiUrl + 'movies/list',
   FETCH_LISTS_NAMES: baseApiUrl + 'movies/lists',
+  FETCH_PERSONAL_LIST: baseApiUrl + 'movies/list/personal',
   POST_LIST: baseApiUrl + 'movies/list',
+  POST_MOVIE: baseApiUrl + 'movies/list/',
   SHARE_LIST: baseApiUrl + 'movies/list/share'
 }
 

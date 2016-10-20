@@ -42,6 +42,17 @@ class ListContentStore extends EventEmmiter {
 
   //////////////////////////////////////////////////////////////////////////////
 
+  addMovieToCurrentList(movie) {
+    let listId = _state.currentList.id
+    console.log(_state)
+    listService.postMovie(listId, movie)
+  }
+
+  renderList(list) {
+    _state.currentList = list
+    this.emitChange()
+  }
+
   shareList(email) {
     listService.shareList(email, _state.currentList.id, (err, response) => {
       if (!err) {
@@ -56,8 +67,17 @@ class ListContentStore extends EventEmmiter {
       if (err) {
         console.error(err)
       } else {
-        _state.currentList = list
-        this.emitChange()
+        this.renderList(list)
+      }
+    })
+  }
+
+  viewPersonalList(ownerEmail) {
+    listService.fetchPersonalList(ownerEmail, (err, list) => {
+      if (err) {
+        console.error(err)
+      } else {
+        this.renderList(list)
       }
     })
   }
@@ -69,10 +89,19 @@ let listContentStore = new ListContentStore()
 listContentStore.dispatchToken = AppDispatcher.register(action => {
 
   switch (action.type) {
+    case LCConstants.ACTION_ADD_MOVIE:
+      listContentStore.addMovieToCurrentList(action.movie)
+      break
+
     case LCConstants.ACTION_FETCH_LIST:
       var ownerEmail = action.ownerEmail
       var listId = action.listId
       listContentStore.viewList(ownerEmail, listId)
+      break
+
+    case LCConstants.ACTION_FETCH_PERSONAL_LIST:
+      let ownerEmail = action.ownerEmail
+      listContentStore.viewPersonalList(ownerEmail)
       break
 
     case LCConstants.ACTION_SHARE_LIST:

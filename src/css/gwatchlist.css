@@ -185,3 +185,54 @@ h1, h2 {
   }
 }
 
+/******************************************************************************/
+/** Component: Movie.react */
+
+
+/* Ultra small devices */
+@media (max-width: 375px) {
+
+  .movie-poster-image {
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 767px) and (min-width: 375px) {
+
+  .movie-poster-image {
+    /*height: 274px;
+    max-height: 274px;
+    min-height: 274px;*/
+    height: auto;
+  }
+}
+
+/* Small devices */
+@media (min-width: 768px) {
+
+  .movie-poster-image {
+    height: 330px;
+    max-height: 330px;
+    min-height: 330px;
+  }
+}
+
+/* Medium devices */
+@media (min-width: 992px) {
+
+  .movie-poster-image {
+    height: 319px;
+    max-height: 319px;
+    min-height: 319px;
+  }
+}
+
+/* Large devices */
+@media (min-width: 1200px) {
+
+  .movie-poster-image {
+    height: 247.5px;
+    max-height: 247.5px;
+    min-height: 247.5px;
+  }
+}
