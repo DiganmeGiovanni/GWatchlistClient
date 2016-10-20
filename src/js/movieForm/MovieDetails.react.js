@@ -1,5 +1,6 @@
 import React from 'react'
 import MovieFormActions from './MovieFormActions'
+import ListContentActions from './../listContents/ListContentActions'
 
 class MovieDetails extends React.Component {
 
@@ -77,6 +78,27 @@ class MovieDetails extends React.Component {
           </div>
 
         </div>
+        <div className="modal-footer">
+          <div className="row">
+            <div className="col-xs-12">
+              <button
+                className="btn btn-danger"
+                onClick={this.cancelAddition}
+              >
+                  <span className="fa fa-times"></span>
+                <span>&nbsp;&nbsp;Cancel</span>
+              </button>
+              <span>&nbsp;&nbsp;&nbsp;</span>
+              <button
+                className="btn btn-success"
+                onClick={this.addMovieToList.bind(null, movie)}
+              >
+                <span className="fa fa-plus"></span>
+                <span>&nbsp;&nbsp;Add to list</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
@@ -129,6 +151,14 @@ class MovieDetails extends React.Component {
     }
 
     return genresJSX
+  }
+
+  cancelAddition() {
+    $('#modal-movie-form').modal('hide')
+  }
+
+  addMovieToList(movie) {
+    ListContentActions.addMovieToCurrentList(movie)
   }
 
   watchYoutubeTrailers() {
