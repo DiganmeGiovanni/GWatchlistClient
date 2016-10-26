@@ -54,6 +54,7 @@ class ListContents extends React.Component {
 
   constructMoviesJSX() {
     let movies = this.state.currentList.movies
+    let viewingDetailsOf = this.state.viewingDetailsOf
 
     if (movies.length > 0) {
 
@@ -63,6 +64,7 @@ class ListContents extends React.Component {
           <Movie
             key={'movie-' + movies[i].tmdbId + '-' + i}
             movie={movies[i]}
+            displayingDetails={viewingDetailsOf === movies[i].tmdbId}
           />
         )
       }

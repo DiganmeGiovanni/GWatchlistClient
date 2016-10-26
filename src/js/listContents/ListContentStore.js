@@ -13,7 +13,8 @@ let _state = {
     id: '',
     name: '- - -',
     movies: [],
-    sharedWith: []
+    sharedWith: [],
+    viewingDetailsOf: ''
   }
 }
 
@@ -46,6 +47,11 @@ class ListContentStore extends EventEmmiter {
     let listId = _state.currentList.id
     console.log(_state)
     listService.postMovie(listId, movie)
+  }
+
+  displayMovieDetails(tmdbId) {
+    _state.viewingDetailsOf = tmdbId
+    this.emitChange()
   }
 
   renderList(list) {
@@ -91,6 +97,10 @@ listContentStore.dispatchToken = AppDispatcher.register(action => {
   switch (action.type) {
     case LCConstants.ACTION_ADD_MOVIE:
       listContentStore.addMovieToCurrentList(action.movie)
+      break
+
+    case LCConstants.ACTION_DISPLAY_DETAILS:
+      listContentStore.displayMovieDetails(action.tmdbId)
       break
 
     case LCConstants.ACTION_FETCH_LIST:

@@ -11,6 +11,13 @@ let ListContentActions = {
     })
   },
 
+  displayMovieDetails(tmdbId) {
+    AppDispatcher.dispatch({
+      type: LCConstants.ACTION_DISPLAY_DETAILS,
+      tmdbId: tmdbId
+    })
+  },
+
   fetchList(ownerEmail, listId) {
     AppDispatcher.dispatch({
       type: LCConstants.ACTION_FETCH_LIST,

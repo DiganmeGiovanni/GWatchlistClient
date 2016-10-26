@@ -1,6 +1,7 @@
 
 import React from 'react'
 import LCConstants from './LCConstants'
+import ListContentActions from './ListContentActions'
 let moment = require('moment')
 
 class Movie extends React.Component {
@@ -12,7 +13,6 @@ class Movie extends React.Component {
 
     this.state = {
       playingTrailer: false,
-      showingDetails: false
     }
   }
 
@@ -30,7 +30,7 @@ class Movie extends React.Component {
       })
     }
 
-    if (this.state.showingDetails) {
+    if (this.props.displayingDetails) {
       document.getElementById(this.props.movie.tmdbId + "").scrollIntoView()
       window.scrollBy(0, -70)
     }
@@ -47,7 +47,7 @@ class Movie extends React.Component {
 
     // Style classes for watch list item
     let watchItemClasses = ""
-    if (this.state.showingDetails) {
+    if (this.props.displayingDetails) {
       watchItemClasses += "card-towatch-item col-xs-12"
     }
     else {
@@ -68,7 +68,7 @@ class Movie extends React.Component {
         <div className="row">
 
           {/*Buttons toolbar for small and up devices*/}
-          <div className={this.state.showingDetails ? "hidden-xs col-sm-12" : "hidden"}>
+          <div className={this.props.displayingDetails ? "hidden-xs col-sm-12" : "hidden"}>
             <div className="btn-toolbar">
               <div className="btn-group pull-right">
                 <button
@@ -114,11 +114,11 @@ class Movie extends React.Component {
           </div>
 
           {/*Poster image */}
-          <div className={this.state.showingDetails ? "col-xs-9 col-sm-4" : "col-xs-12"}>
+          <div className={this.props.displayingDetails ? "col-xs-9 col-sm-4" : "col-xs-12"}>
             <div onClick={this._onToggleDisplayDetails} style={{cursor: 'pointer', width: '100%'}}>
               <img
                 src={
-                  this.state.showingDetails
+                  this.props.displayingDetails
                     ? LCConstants.tmdb.apiImages.MEDIUM + movie.posterPath
                     : LCConstants.tmdb.apiImages.SMALL + movie.posterPath
                 }
@@ -129,7 +129,7 @@ class Movie extends React.Component {
           </div>
 
           {/* Side vertical top bar for small devices */}
-          <div className={this.state.showingDetails ? "col-xs-3 visible-xs-block text-right" : "hidden"}>
+          <div className={this.props.displayingDetails ? "col-xs-3 visible-xs-block text-right" : "hidden"}>
             <div className="btn-group-vertical">
               <button
                 className={actionBtnClasses}
@@ -174,7 +174,7 @@ class Movie extends React.Component {
 
 
           {/* Movie details */}
-          <div className={this.state.showingDetails ? "col-xs-12 col-sm-8" : "hidden"}>
+          <div className={this.props.displayingDetails ? "col-xs-12 col-sm-8" : "hidden"}>
             {detailsJSX}
           </div>
         </div>
@@ -319,11 +319,11 @@ class Movie extends React.Component {
   }
 
   _onToggleDisplayDetails() {
-    let showingDetails = !this.state.showingDetails
-
-    this.setState({
-      showingDetails: showingDetails
-    })
+    if (this.props.displayingDetails) {
+      ListContentActions.displayMovieDetails('')
+    } else {
+      ListContentActions.displayMovieDetails(this.props.movie.tmdbId)
+    }
   }
 
   /*_onToggleWatched: function () {
