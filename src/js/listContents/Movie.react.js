@@ -1,7 +1,9 @@
 
-import React from 'react'
-import LCConstants from './LCConstants'
-import ListContentActions from './ListContentActions'
+import React from "react";
+import YTPlayer from "./../youtubePlayer/YTPlayer.react";
+import YTPlayerActions from "./../youtubePlayer/YTPlayerActions.react";
+import LCConstants from "./LCConstants";
+import ListContentActions from "./ListContentActions";
 let moment = require('moment')
 
 class Movie extends React.Component {
@@ -19,19 +21,11 @@ class Movie extends React.Component {
   componentDidUpdate() {
     if (this.state.playingTrailer) {
       let trailerContainerId = 'modal-trailer-container-' + this.props.movie.tmdbId
-      new YT.Player(trailerContainerId, {
-        width: '100%',
-        videoId: this.props.movie.trailerId,
-        events: {
-          'onReady': function (event) {
-            event.target.playVideo()
-          }
-        }
-      })
+
     }
 
     if (this.props.displayingDetails) {
-      document.getElementById(this.props.movie.tmdbId + "").scrollIntoView()
+      document.getElementById(this.props.movie.tmdbId + '').scrollIntoView()
       window.scrollBy(0, -70)
     }
   }
@@ -46,12 +40,12 @@ class Movie extends React.Component {
     let trailerModalJSX = this.constructTrailerModal()
 
     // Style classes for watch list item
-    let watchItemClasses = ""
+    let watchItemClasses = ''
     if (this.props.displayingDetails) {
-      watchItemClasses += "card-towatch-item col-xs-12"
+      watchItemClasses += 'card-towatch-item col-xs-12'
     }
     else {
-      watchItemClasses += "col-xs-6 col-sm-4 col-md-3 col-lg-2"
+      watchItemClasses += 'col-xs-6 col-sm-4 col-md-3 col-lg-2'
     }
 
     // Styles for watch list item
@@ -61,26 +55,26 @@ class Movie extends React.Component {
     }
 
     // Style classes for action buttons
-    let actionBtnClasses = "btn btn-link btn-lg btn-transparent"
+    let actionBtnClasses = 'btn btn-link btn-lg btn-transparent'
 
     return (
       <div id={movie.tmdbId} className={watchItemClasses} style={watchItemStyles}>
-        <div className="row">
+        <div className='row'>
 
           {/*Buttons toolbar for small and up devices*/}
-          <div className={this.props.displayingDetails ? "hidden-xs col-sm-12" : "hidden"}>
-            <div className="btn-toolbar">
-              <div className="btn-group pull-right">
+          <div className={this.props.displayingDetails ? 'hidden-xs col-sm-12' : 'hidden'}>
+            <div className='btn-toolbar'>
+              <div className='btn-group pull-right'>
                 <button
                   className={actionBtnClasses}
                   onClick={this._onToggleDisplayDetails}
                   style={{paddingRight: '0px'}}
                 >
-                  <span className="glyphicon glyphicon-remove"></span>
+                  <span className='glyphicon glyphicon-remove'></span>
                 </button>
               </div>
 
-              <div className="btn-group pull-right">
+              <div className='btn-group pull-right'>
                 <button
                   className={actionBtnClasses}
                   onClick={this._onToggleWatched}
@@ -88,8 +82,8 @@ class Movie extends React.Component {
                   <span
                     className={
                       movie.watched
-                        ? "glyphicon glyphicon-eye-close"
-                        : "glyphicon glyphicon-eye-open"
+                        ? 'glyphicon glyphicon-eye-close'
+                        : 'glyphicon glyphicon-eye-open'
                     }
                   >
                   </span>
@@ -98,23 +92,23 @@ class Movie extends React.Component {
                   className={actionBtnClasses}
                   onClick={this.playTrailer}
                 >
-                  <span className="glyphicon glyphicon-facetime-video"></span>
+                  <span className='glyphicon glyphicon-facetime-video'></span>
                 </button>
               </div>
 
-              <div className="btn-group pull-right">
+              <div className='btn-group pull-right'>
                 <button
                   className={actionBtnClasses}
                   onClick={this._onDestroyClick}
                   style={{color: '#e74c3c'}}>
-                  <span className="glyphicon glyphicon-trash"></span>
+                  <span className='glyphicon glyphicon-trash'></span>
                 </button>
               </div>
             </div>
           </div>
 
           {/*Poster image */}
-          <div className={this.props.displayingDetails ? "col-xs-9 col-sm-4" : "col-xs-12"}>
+          <div className={this.props.displayingDetails ? 'col-xs-9 col-sm-4' : 'col-xs-12'}>
             <div onClick={this._onToggleDisplayDetails} style={{cursor: 'pointer', width: '100%'}}>
               <img
                 src={
@@ -122,34 +116,34 @@ class Movie extends React.Component {
                     ? LCConstants.tmdb.apiImages.MEDIUM + movie.posterPath
                     : LCConstants.tmdb.apiImages.SMALL + movie.posterPath
                 }
-                alt=""
-                className={movie.watched ? "grayscaled-image" : ""}
-                width="100%"/>
+                alt=''
+                className={movie.watched ? 'grayscaled-image' : ''}
+                width='100%'/>
             </div>
           </div>
 
           {/* Side vertical top bar for small devices */}
-          <div className={this.props.displayingDetails ? "col-xs-3 visible-xs-block text-right" : "hidden"}>
-            <div className="btn-group-vertical">
+          <div className={this.props.displayingDetails ? 'col-xs-3 visible-xs-block text-right' : 'hidden'}>
+            <div className='btn-group-vertical'>
               <button
                 className={actionBtnClasses}
                 onClick={this._onToggleDisplayDetails}
                 style={{paddingTop: '0px'}}
               >
-                <span className="glyphicon glyphicon-remove"></span>
+                <span className='glyphicon glyphicon-remove'></span>
               </button>
             </div>
 
             <br/><br/>
-            <div className="btn-group-vertical">
+            <div className='btn-group-vertical'>
               <button
                 className={actionBtnClasses}
                 onClick={this._onToggleWatched}>
                   <span
                     className={
                       movie.watched
-                        ? "glyphicon glyphicon-eye-close"
-                        : "glyphicon glyphicon-eye-open"
+                        ? 'glyphicon glyphicon-eye-close'
+                        : 'glyphicon glyphicon-eye-open'
                     }
                   >
                   </span>
@@ -157,24 +151,24 @@ class Movie extends React.Component {
               <button
                 className={actionBtnClasses}
                 onClick={this.playTrailer}>
-                <span className="glyphicon glyphicon-facetime-video"></span>
+                <span className='glyphicon glyphicon-facetime-video'></span>
               </button>
             </div>
 
             <br/><br/>
-            <div className="btn-group-vertical">
+            <div className='btn-group-vertical'>
               <button
                 className={actionBtnClasses}
                 onClick={this._onDestroyClick}
                 style={{color: '#e74c3c'}}>
-                <span className="glyphicon glyphicon-trash"></span>
+                <span className='glyphicon glyphicon-trash'></span>
               </button>
             </div>
           </div>
 
 
           {/* Movie details */}
-          <div className={this.props.displayingDetails ? "col-xs-12 col-sm-8" : "hidden"}>
+          <div className={this.props.displayingDetails ? 'col-xs-12 col-sm-8' : 'hidden'}>
             {detailsJSX}
           </div>
         </div>
@@ -202,7 +196,7 @@ class Movie extends React.Component {
     for (let i = 0; i < dirs.length; i++) {
       directorsJSX.push(
         <span key={i} style={styleLabel}>
-          <span className="label label-primary">{dirs[i]}</span>
+          <span className='label label-primary'>{dirs[i]}</span>
           <span>&nbsp;</span>
         </span>
       )
@@ -214,7 +208,7 @@ class Movie extends React.Component {
     for (let i = 0; i < genres.length; i++) {
       genresJSX.push(
         <span key={i} style={styleLabel}>
-          <span className="label label-default">{genres[i]}</span>
+          <span className='label label-default'>{genres[i]}</span>
           <span>&nbsp;</span>
         </span>
       )
@@ -232,33 +226,33 @@ class Movie extends React.Component {
 
     // Joining details in a single node
     return (
-      <div className="row">
-        <div className="col-xs-12">
-          <br className="visible-xs-block" />
+      <div className='row'>
+        <div className='col-xs-12'>
+          <br className='visible-xs-block' />
           <p>
             <b style={{fontSize: '1.2em', paddingBottom: '5px'}}>
-              <span className="glyphicon glyphicon-film"></span>
+              <span className='glyphicon glyphicon-film'></span>
               <span>&nbsp;&nbsp;{movie.title}</span>
             </b><br/><br/>
             <span>
-              <span className="glyphicon glyphicon-calendar"></span>
+              <span className='glyphicon glyphicon-calendar'></span>
               <span>&nbsp;&nbsp;{releaseDate}</span>
             </span><br/>
             <span>
-              <span className="glyphicon glyphicon-star" style={{color: '#e67e22'}}></span>
+              <span className='glyphicon glyphicon-star' style={{color: '#e67e22'}}></span>
               <span>&nbsp;&nbsp;{movie.voteAverage}</span>
             </span>
           </p>
         </div>
-        <div className="col-xs-6">
+        <div className='col-xs-6'>
           <b>Directors:</b><br/>
           {directorsJSX}
         </div>
-        <div className="col-xs-6">
+        <div className='col-xs-6'>
           <b>Genres</b><br/>
           {genresJSX}
         </div>
-        <div className="col-xs-12"><br/>
+        <div className='col-xs-12'><br/>
           <b>Synopsis</b><br/>
           {synopsisJSX}
         </div>
@@ -267,55 +261,17 @@ class Movie extends React.Component {
   }
 
   constructTrailerModal() {
-    let idTrailerModal = 'modal-trailer-' + this.props.movie.tmdbId
-    let trailerContainerId = 'modal-trailer-container-' + this.props.movie.tmdbId
-    let videoPlayerContainerId = 'video-player-container-' + this.props.movie.tmdbId
 
     return (
-      <div className="modal fade" id={idTrailerModal} tabIndex="-1" role="dialog">
-        <div className="modal-dialog modal-responsive" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true" style={{color: 'white'}}>&times;</span>
-              </button>
-              <h4 className="modal-title">{this.props.movie.title}</h4>
-            </div>
-            <div className="modal-body">
-              <div className="row">
-                <div id={videoPlayerContainerId} className="col-xs-12">
-                  <div id={trailerContainerId}></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <YTPlayer
+        modalTitle={this.props.movie.title}
+      />
     )
   }
 
   playTrailer() {
-
-    let idTrailerModal = 'modal-trailer-' + this.props.movie.tmdbId
-    let trailerContainerId = 'modal-trailer-container-' + this.props.movie.tmdbId
-    let videoPlayerContainerId = 'video-player-container-' + this.props.movie.tmdbId
-
-    $('#' + idTrailerModal).modal('show')
-
-    this.setState({
-      playingTrailer: true
-    })
-
-    $('#' + idTrailerModal).on('hidden.bs.modal', () => {
-      $('#' + videoPlayerContainerId).empty()
-
-      let $newVideoContainer = $("<div>", {id: trailerContainerId})
-      $('#' + videoPlayerContainerId).append($newVideoContainer)
-
-      this.setState({
-        playingTrailer: false
-      })
-    })
+    console.log('Searching trailer')
+    YTPlayerActions.searchVideos(this.props.movie.title + ' Official trailer')
   }
 
   _onToggleDisplayDetails() {

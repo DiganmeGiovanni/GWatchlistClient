@@ -45,6 +45,22 @@ module.exports = {
     request(params, function (err, res, body) {
       callback(err, body)
     })
-  }
+  },
 
+  searchVideos: function (searchTerm, callback) {
+    let params = {
+      method: 'GET',
+      url:ToWatchConstants.GO_YTB_API_URL_SEARCH,
+      qs:{
+        part: 'snippet',
+        q: searchTerm,
+        type: 'video',
+        key: ToWatchConstants.GO_YTB_API_KEY
+      }
+    }
+
+    request(params, (err, res, body) => {
+      callback(err, body)
+    })
+  }
 }
