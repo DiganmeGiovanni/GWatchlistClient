@@ -73,7 +73,9 @@ class ListContents extends React.Component {
     }
     else {
       return (
-        <h5>It seems that there is not movies on your list yet</h5>
+        <div className="col-xs-12">
+          <h5>It seems that there is not movies on your list yet</h5>
+        </div>
       )
     }
   }
