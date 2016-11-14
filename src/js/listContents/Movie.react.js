@@ -1,8 +1,8 @@
 
 import React from "react";
+import LCConstants from "./LCConstants";
 import YTPlayer from "./../youtubePlayer/YTPlayer.react";
 import YTPlayerActions from "./../youtubePlayer/YTPlayerActions.react";
-import LCConstants from "./LCConstants";
 import ListContentActions from "./ListContentActions";
 let moment = require('moment')
 
@@ -263,14 +263,15 @@ class Movie extends React.Component {
   constructTrailerModal() {
 
     return (
-      <YTPlayer
-        modalTitle={this.props.movie.title}
-      />
+      this.props.displayingDetails
+        ? <YTPlayer
+            modalTitle={this.props.movie.title}
+          />
+        : ""
     )
   }
 
   playTrailer() {
-    console.log('Searching trailer')
     YTPlayerActions.searchVideos(this.props.movie.title + ' Official trailer')
   }
 

@@ -26,22 +26,23 @@ class YTPlayer extends React.Component {
   componentDidUpdate() {
     if (this.state.modalHidden) {
       $('#modal-yt-player').modal('hide')
-      YTPlayerStore.removeChangeListener(this._onChange)
     } else {
       $('#modal-yt-player').modal('show')
-      YTPlayerStore.addChangeListener(this._onChange)
       $('#modal-yt-player').on('hidden.bs.modal', () => {
           YTPlayerActions.stopAndCloseModal()
       })
-      new YT.Player('yt-player', {
-        width: '100%',
-        videoId: this.state.currentVideoId,
-        events: {
-          'onReady': function (event) {
-            event.target.playVideo()
+
+      if (this.state.playing) {
+        new YT.Player('yt-player', {
+          width: '100%',
+          videoId: this.state.currentVideoId,
+          events: {
+            'onReady': function (event) {
+              event.target.playVideo()
+            }
           }
-        }
-      })
+        })
+      }
     }
   }
 
@@ -64,7 +65,6 @@ class YTPlayer extends React.Component {
       <div id="modal-yt-player" className="modal fade">
         <div className="modal-dialog">
           <div className="modal-content">
-
             <div className="modal-header">
               <button type="button" className="close" data-dismiss="modal">
                 <span aria-hidden="true">&times;</span>

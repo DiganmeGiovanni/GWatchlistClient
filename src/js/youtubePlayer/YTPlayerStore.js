@@ -47,14 +47,20 @@ class YTPlayerStore extends EventEmmiter {
   }
 
   searchVideos(searchTerm) {
+    //
+    // First, display modal dialog and loading spinner
+    _state.modalHidden = false
+    _state.playing = false
+    this.emitChange()
+
+    //
+    // Make search through youtube api and render results on response
     youtubeService.searchVideos(searchTerm, (err, foundVideos) => {
       if (err) {
         console.error('Error on youtube service')
         console.error(err)
       } else {
         foundVideos = JSON.parse(foundVideos)
-        console.log('Found videos:')
-        console.log(foundVideos);
 
         let videosItems = foundVideos.items
         let videos = []
