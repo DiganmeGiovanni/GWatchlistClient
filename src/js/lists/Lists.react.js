@@ -198,6 +198,7 @@ class Lists extends Component {
     if (listName && listName.trim().length > 0) {
       let $loadingIcon = $('<span>', {class: 'fa fa-spin fa-spinner'})
       $('#btn-create-list').html($loadingIcon)
+      document.getElementById('btn-create-list').disabled = true
 
       ListsActions.postList(this.props.user.email, listName)
     }
