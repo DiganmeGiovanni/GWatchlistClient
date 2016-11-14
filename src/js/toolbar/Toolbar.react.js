@@ -1,6 +1,7 @@
 
-import React, {Component} from 'react'
+import React from 'react'
 
+import ListContentStore from './../listContents/ListContentStore'
 import ListActions from './../lists/ListsActions'
 import MovieFormActions from './../movieForm/MovieFormActions'
 
@@ -9,16 +10,26 @@ import ListShare from './../listShare/ListShare.react'
 import MovieForm from './../movieForm/MovieForm.react'
 
 
-class Toolbar extends Component {
+class Toolbar extends React.Component {
 
   constructor(props) {
     super(props)
     this.onClickListenerBtnLists = this.onClickListenerBtnLists.bind(this)
     this.onClickListenerBtnLists = this.onClickListenerBtnLists.bind(this)
+    this._onChange = this._onChange.bind(this)
 
     this.state = {
-      loadLists: false
+      loadLists: false,
+      displayShareBtn: false
     }
+  }
+
+  componentDidMount() {
+    ListContentStore.addChangeListener(this._onChange)
+  }
+
+  componentWillUnmount() {
+    ListContentStore.removeChangeListener(this._onChange)
   }
 
   render() {
@@ -44,14 +55,18 @@ class Toolbar extends Component {
               </button>
 
               {/* Share list button */}
-              <button
-                className="btn btn-link btn-transparent"
-                onClick={this.onClickListenerBtnListShare}
-                type="button"
-              >
-                <span className="fa fa-user-plus"></span>
-                <span>&nbsp;&nbsp;SHARE LIST</span>
-              </button>
+              {
+                this.state.displayShareBtn
+                  ? <button
+                      className="btn btn-link btn-transparent"
+                      onClick={this.onClickListenerBtnListShare}
+                      type="button"
+                    >
+                      <span className="fa fa-user-plus"></span>
+                      <span>&nbsp;&nbsp;SHARE LIST</span>
+                    </button>
+                  : ""
+              }
 
               {/* Lists button */}
               <button
@@ -105,6 +120,12 @@ class Toolbar extends Component {
   }
 
   //////////////////////////////////////////////////////////////////////////////
+
+  _onChange() {
+    this.setState({
+      displayShareBtn: !ListContentStore.getState().currentList.personalList
+    })
+  }
 
   onClickListenerBtnLists() {
     $('#modal-lists').modal('show')

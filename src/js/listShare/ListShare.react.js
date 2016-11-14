@@ -19,6 +19,13 @@ class ListShare extends React.Component {
 
   componentDidMount() {
     ListContentStore.addChangeListener(this._onChange)
+
+    // Clear form on modal close
+    $('#modal-list-share').on('hidden.bs.modal', () => {
+      $('#p-email').addClass('hidden')
+      $('#p-error-repeated-email').addClass('hidden')
+      $('#inp-email').val('')
+    })
   }
 
   componentWillUnmount() {
@@ -64,7 +71,7 @@ class ListShare extends React.Component {
                     id="p-error-repeated-email"
                     className="alert alert-danger hidden"
                   >
-                    The list has been shared with this email yet
+                    The list is already shared with this email
                   </p>
                 </div>
 
@@ -131,6 +138,11 @@ class ListShare extends React.Component {
     return re.test(str)
   }
 
+  belongsTo(email) {
+    let ownerEmail = this.state.currentList.ownerEmail
+    return ownerEmail === email
+  }
+
   isSharedWith(email) {
     let sharedWith = this.state.currentList.sharedWith
     for (let i = 0; i < sharedWith.length; i++) {
@@ -149,9 +161,11 @@ class ListShare extends React.Component {
     let email = $('#inp-email').val()
     if (!this.isEmail(email)) {
       $('#p-error-email').removeClass('hidden')
+      $('#inp-email').select()
     }
-    else if (this.isSharedWith(email)) {
+    else if (this.isSharedWith(email) || this.belongsTo(email)) {
       $('#p-error-repeated-email').removeClass('hidden')
+      $('#inp-email').select()
     }
     else {
       $('#inp-email').val('')
