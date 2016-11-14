@@ -1,6 +1,7 @@
 import React from 'react'
 import MovieFormActions from './MovieFormActions'
 import ListContentActions from './../listContents/ListContentActions'
+import ListContentStore from './../listContents/ListContentStore'
 
 class MovieDetails extends React.Component {
 
@@ -13,6 +14,7 @@ class MovieDetails extends React.Component {
     let movie = this.props.movie
     let directorsJSX = this.constructDirectorsJSX(movie)
     let genresJSX = this.constructGenresJSX(movie)
+    let addedPreviously = this.addedPreviously(movie)
 
     return (
       <div className="modal-content">
@@ -24,6 +26,15 @@ class MovieDetails extends React.Component {
         </div>
         <div className="modal-body">
 
+          <div className={addedPreviously ? "row" : "row hidden"}>
+            <div className="col-sm-12">
+              <div className="alert alert-warning">
+                <span className="glyphicon glyphicon-warning-sign"></span>
+                <span>&nbsp;&nbsp;This movie is already added to current list</span>
+              </div>
+            </div>
+          </div>
+
           {/* Movie title */}
           <div className="row">
             <div className="col-sm-12">
@@ -33,7 +44,6 @@ class MovieDetails extends React.Component {
               </p>
             </div>
           </div>
-
 
           <div className="row">
 
@@ -91,6 +101,7 @@ class MovieDetails extends React.Component {
               <span>&nbsp;&nbsp;&nbsp;</span>
               <button
                 className="btn btn-success"
+                disabled={addedPreviously}
                 onClick={this.addMovieToList.bind(null, movie)}
               >
                 <span className="fa fa-plus"></span>
@@ -160,6 +171,23 @@ class MovieDetails extends React.Component {
   addMovieToList(movie) {
     ListContentActions.addMovieToCurrentList(movie)
     $('#modal-movie-form').modal('hide')
+  }
+
+  /**
+   * Verify on movies of current list if
+   * movie has been added previously
+   * @param movie Movie to look for on current list
+   */
+  addedPreviously(movie) {
+    let addedPreviously = false
+    for (let addedMovie of ListContentStore.getState().currentList.movies) {
+      if (+addedMovie.tmdbId === +movie.tmdbId) {
+        addedPreviously = true
+        break
+      }
+    }
+
+    return addedPreviously
   }
 
   watchYoutubeTrailers() {
