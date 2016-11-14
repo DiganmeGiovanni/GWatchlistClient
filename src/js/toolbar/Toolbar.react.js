@@ -1,13 +1,11 @@
 
-import React from 'react'
-
-import ListContentStore from './../listContents/ListContentStore'
-import ListActions from './../lists/ListsActions'
-import MovieFormActions from './../movieForm/MovieFormActions'
-
-import Lists from './../lists/Lists.react'
-import ListShare from './../listShare/ListShare.react'
-import MovieForm from './../movieForm/MovieForm.react'
+import React from "react";
+import ListContentStore from "./../listContents/ListContentStore";
+import ListActions from "./../lists/ListsActions";
+import MovieFormActions from "./../movieForm/MovieFormActions";
+import Lists from "./../lists/Lists.react";
+import ListShare from "./../listShare/ListShare.react";
+import MovieForm from "./../movieForm/MovieForm.react";
 
 
 class Toolbar extends React.Component {
@@ -81,23 +79,44 @@ class Toolbar extends React.Component {
               {/* Spacing on small and up screens */}
               <label className="hidden-xs" style={{width: "30px"}}></label>
 
-              {/* Preferences button */}
-              <button
-                className="btn btn-link btn-transparent"
-                type="button"
-                data-target="#preferences-modal"
-                data-toggle="modal"
-              >
-                <span className="glyphicon glyphicon-cog" />
-              </button>
+              {/* Menu options */}
+              <div className="btn-group">
+                <button
+                  className="btn btn-link btn-transparent dropdown-toggle"
+                  data-toggle="dropdown"
+                  type="button"
+                >
+                  <span className="glyphicon glyphicon-option-vertical"></span>
+                </button>
+                <ul className="dropdown-menu dropdown-menu-right">
+                  <li>
+                    <a href="#">
+                      <span className="glyphicon glyphicon-trash" style={{color: '#e74c3c'}}></span>
+                      <span>&nbsp;&nbsp;Delete list</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <span className="glyphicon glyphicon-cog"></span>
+                      <span>&nbsp;&nbsp;Preferences</span>
+                    </a>
+                  </li>
+                  <li className="divider" role="separator"></li>
+                  <li>
+                    <a href="#">
+                      <span className="glyphicon glyphicon-off"></span>
+                      <span>&nbsp;&nbsp;Exit</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
 
           {/* FAB Button for extra small devices */}
           <button
             className="btn btn-fab visible-xs-block"
-            data-target="#towatch-form-modal"
-            data-toggle="modal"
+            onClick={this.onClickListenerBtnAddMovie}
             type="button"
           >
             <span className="glyphicon glyphicon-plus"></span>
