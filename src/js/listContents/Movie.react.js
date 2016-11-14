@@ -11,6 +11,8 @@ class Movie extends React.Component {
   constructor(props) {
     super(props)
     this._onToggleDisplayDetails = this._onToggleDisplayDetails.bind(this)
+    this._toggleWatched = this._toggleWatched.bind(this)
+    this.deleteMovie = this.deleteMovie.bind(this)
     this.playTrailer = this.playTrailer.bind(this)
 
     this.state = {
@@ -77,13 +79,13 @@ class Movie extends React.Component {
               <div className='btn-group pull-right'>
                 <button
                   className={actionBtnClasses}
-                  onClick={this._onToggleWatched}
+                  onClick={this._toggleWatched}
                 >
                   <span
                     className={
                       movie.watched
                         ? 'glyphicon glyphicon-eye-close'
-                        : 'glyphicon glyphicon-eye-open'
+                        : 'glyphicon glyphicon-ok'
                     }
                   >
                   </span>
@@ -99,7 +101,7 @@ class Movie extends React.Component {
               <div className='btn-group pull-right'>
                 <button
                   className={actionBtnClasses}
-                  onClick={this._onDestroyClick}
+                  onClick={this.deleteMovie}
                   style={{color: '#e74c3c'}}>
                   <span className='glyphicon glyphicon-trash'></span>
                 </button>
@@ -138,12 +140,12 @@ class Movie extends React.Component {
             <div className='btn-group-vertical'>
               <button
                 className={actionBtnClasses}
-                onClick={this._onToggleWatched}>
+                onClick={this._toggleWatched}>
                   <span
                     className={
                       movie.watched
                         ? 'glyphicon glyphicon-eye-close'
-                        : 'glyphicon glyphicon-eye-open'
+                        : 'glyphicon glyphicon-ok'
                     }
                   >
                   </span>
@@ -159,7 +161,7 @@ class Movie extends React.Component {
             <div className='btn-group-vertical'>
               <button
                 className={actionBtnClasses}
-                onClick={this._onDestroyClick}
+                onClick={this.deleteMovie}
                 style={{color: '#e74c3c'}}>
                 <span className='glyphicon glyphicon-trash'></span>
               </button>
@@ -283,13 +285,17 @@ class Movie extends React.Component {
     }
   }
 
-  /*_onToggleWatched: function () {
-    ToWatchActions.toggleWatched(this.props.toWatch)
-  },
+  _toggleWatched () {
+    let movie = this.props.movie
+    movie.watched = !movie.watched
+    ListContentActions.displayMovieDetails('')
+    ListContentActions.updateMovie(movie)
+  }
 
-  _onDestroyClick: function () {
-    ToWatchActions.destroy(this.props.toWatch.tmdbId)
-  }*/
+  deleteMovie () {
+    let movie = this.props.movie
+    ListContentActions.deleteMovie(movie)
+  }
 }
 
 export default Movie

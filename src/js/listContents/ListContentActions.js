@@ -1,12 +1,19 @@
 
 let AppDispatcher = require('./../dispatcher/AppDispatcher')
-import LCConstants from './LCConstants'
+import LCConstants from "./LCConstants";
 
 let ListContentActions = {
 
   addMovieToCurrentList(movie) {
     AppDispatcher.dispatch({
       type: LCConstants.ACTION_ADD_MOVIE,
+      movie: movie
+    })
+  },
+
+  deleteMovie(movie) {
+    AppDispatcher.dispatch({
+      type: LCConstants.ACTION_DELETE_MOVIE,
       movie: movie
     })
   },
@@ -30,6 +37,13 @@ let ListContentActions = {
     AppDispatcher.dispatch({
       type: LCConstants.ACTION_FETCH_PERSONAL_LIST,
       ownerEmail: ownerEmail
+    })
+  },
+
+  updateMovie(movie) {
+    AppDispatcher.dispatch({
+      type: LCConstants.ACTION_UPDATE_MOVIE,
+      movie: movie
     })
   }
 }

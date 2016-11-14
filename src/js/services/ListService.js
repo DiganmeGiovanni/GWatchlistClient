@@ -1,5 +1,5 @@
 
-import {apiUrls} from '../lists/LConstants'
+import {apiUrls} from "../lists/LConstants";
 let request = require('request')
 let GWConstants = require('./../constants/toWatchConstants')
 
@@ -87,6 +87,48 @@ class ListService {
         console.error(err)
       } else if (response.statusCode === 201) {
         //console.log("Movie added successful")
+      }
+    })
+  }
+
+  updateMovie(listId, movie) {
+
+    // Target url
+    let url = apiUrls.POST_MOVIE + listId + '/movie'
+
+    // Prepare request paras
+    let reqConfig = {
+      url: url,
+      method: 'PUT',
+      json: movie
+    }
+
+    request(reqConfig, (err, response, body) => {
+      if (err) {
+        console.error(err)
+      } else if (response.statusCode === 204) {
+        //console.log('Movie updated successfully')
+      }
+    })
+  }
+
+  deleteMovie(listId, movie) {
+
+    // Target url
+    let url = apiUrls.POST_MOVIE + listId + '/movie'
+
+    // Prepare request paras
+    let reqConfig = {
+      url: url,
+      method: 'DELETE',
+      json: movie
+    }
+
+    request(reqConfig, (err, response, body) => {
+      if (err) {
+        console.error(err)
+      } else if (response.statusCode === 204) {
+        //console.log('Movie deleted successfully')
       }
     })
   }

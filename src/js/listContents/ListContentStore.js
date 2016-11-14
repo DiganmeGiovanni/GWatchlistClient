@@ -1,8 +1,7 @@
 
-import EventEmmiter from 'events'
-
-import LCConstants from './LCConstants'
-import listService from './../services/ListService'
+import EventEmmiter from "events";
+import LCConstants from "./LCConstants";
+import listService from "./../services/ListService";
 
 let AppDispatcher = require('./../dispatcher/AppDispatcher')
 let CHANGE_EVENT = 'CH_EVENT_LIST_CONTENTS'
@@ -56,6 +55,28 @@ class ListContentStore extends EventEmmiter {
     this.emitChange()
   }
 
+  deleteMovie(movie) {
+    let listId = _state.currentList.id
+
+    // Send update request to backend
+    listService.deleteMovie(listId, movie)
+
+    // Delete movie from current list
+    let movieIndex = -1
+    for (let i = 0; i < _state.currentList.movies.length; i++) {
+      let lMovie = _state.currentList.movies[i]
+      if (lMovie.tmdbId === movie.tmdbId) {
+        movieIndex = i
+        break
+      }
+    }
+
+    if (movieIndex >= 0) {
+      _state.currentList.movies.splice(movieIndex, 1)
+      this.emitChange()
+    }
+  }
+
   displayMovieDetails(tmdbId) {
     _state.viewingDetailsOf = tmdbId
     this.emitChange()
@@ -73,6 +94,28 @@ class ListContentStore extends EventEmmiter {
         this.emitChange()
       }
     })
+  }
+
+  updateMovie(movie) {
+    let listId = _state.currentList.id
+
+    // Send update request to backend
+    listService.updateMovie(listId, movie)
+
+    // Update movie in current list
+    let movieIndex = -1
+    for (let i = 0; i < _state.currentList.movies.length; i++) {
+      let lMovie = _state.currentList.movies[i]
+      if (lMovie.tmdbId === movie.tmdbId) {
+        movieIndex = i
+        break
+      }
+    }
+
+    if (movieIndex >= 0) {
+      _state.currentList.movies[movieIndex] = movie
+      this.emitChange()
+    }
   }
 
   viewList(ownerEmail, listId) {
@@ -106,6 +149,10 @@ listContentStore.dispatchToken = AppDispatcher.register(action => {
       listContentStore.addMovieToCurrentList(action.movie)
       break
 
+    case LCConstants.ACTION_DELETE_MOVIE:
+      listContentStore.deleteMovie(action.movie)
+      break
+
     case LCConstants.ACTION_DISPLAY_DETAILS:
       listContentStore.displayMovieDetails(action.tmdbId)
       break
@@ -124,6 +171,10 @@ listContentStore.dispatchToken = AppDispatcher.register(action => {
     case LCConstants.ACTION_SHARE_LIST:
       var email = action.email
       listContentStore.shareList(email)
+      break
+
+    case LCConstants.ACTION_UPDATE_MOVIE:
+      listContentStore.updateMovie(action.movie)
       break
   }
 })
