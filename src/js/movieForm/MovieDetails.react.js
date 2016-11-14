@@ -159,6 +159,7 @@ class MovieDetails extends React.Component {
 
   addMovieToList(movie) {
     ListContentActions.addMovieToCurrentList(movie)
+    $('#modal-movie-form').modal('hide')
   }
 
   watchYoutubeTrailers() {

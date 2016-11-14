@@ -45,8 +45,15 @@ class ListContentStore extends EventEmmiter {
 
   addMovieToCurrentList(movie) {
     let listId = _state.currentList.id
-    console.log(_state)
+
+    // Send movie to backend
     listService.postMovie(listId, movie)
+
+    // Display movie on current list
+    movie.active = true
+    movie.watched = false
+    _state.currentList.movies.push(movie)
+    this.emitChange()
   }
 
   displayMovieDetails(tmdbId) {

@@ -86,7 +86,7 @@ class ListService {
       if (err) {
         console.error(err)
       } else if (response.statusCode === 201) {
-        console.log("Movie added successful")
+        //console.log("Movie added successful")
       }
     })
   }

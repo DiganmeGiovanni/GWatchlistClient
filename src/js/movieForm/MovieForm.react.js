@@ -26,7 +26,7 @@ class MovieForm extends React.Component {
   }
 
   render() {
-    let modalContent = this.constructModalContet()
+    let modalContent = this.constructModalContent()
 
     return (
       <div id="modal-movie-form" className="modal fade">
@@ -43,7 +43,7 @@ class MovieForm extends React.Component {
     this.setState(MovieFormStore.getState())
   }
 
-  constructModalContet() {
+  constructModalContent() {
     switch (this.state.view) {
       case MFConstants.views.SEARCH_TMDB:
         return <SearchTMDB/>
