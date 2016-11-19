@@ -2,6 +2,7 @@
 import React from "react";
 import ListContentStore from "./../listContents/ListContentStore";
 import ListActions from "./../lists/ListsActions";
+import ListContentActions from './../listContents/ListContentActions'
 import MovieFormActions from "./../movieForm/MovieFormActions";
 import Lists from "./../lists/Lists.react";
 import ListShare from "./../listShare/ListShare.react";
@@ -12,11 +13,13 @@ class Toolbar extends React.Component {
 
   constructor(props) {
     super(props)
+    this.deleteCurrentList = this.deleteCurrentList.bind(this)
     this.onClickListenerBtnLists = this.onClickListenerBtnLists.bind(this)
     this.onClickListenerBtnLists = this.onClickListenerBtnLists.bind(this)
     this._onChange = this._onChange.bind(this)
 
     this.state = {
+      forceListsFetch: true,
       loadLists: false,
       displayShareBtn: false
     }
@@ -90,7 +93,7 @@ class Toolbar extends React.Component {
                 </button>
                 <ul className="dropdown-menu dropdown-menu-right">
                   <li>
-                    <a href="#">
+                    <a href="#" onClick={this.deleteCurrentList}>
                       <span className="glyphicon glyphicon-trash" style={{color: '#e74c3c'}}></span>
                       <span>&nbsp;&nbsp;Delete list</span>
                     </a>
@@ -125,7 +128,7 @@ class Toolbar extends React.Component {
 
         {/* Modal for lists */}
         <Lists
-          loadLists={this.state.loadLists}
+          forceListsFetch={this.state.forceListsFetch}
           user={this.props.user}
         />
 
@@ -146,12 +149,13 @@ class Toolbar extends React.Component {
     })
   }
 
+  deleteCurrentList() {
+    ListContentActions.deleteCurrentList()
+    ListActions.fetchListsNames(this.props.user.email)
+  }
+
   onClickListenerBtnLists() {
     $('#modal-lists').modal('show')
-
-    this.setState({
-      loadLists: true
-    })
 
     ListActions.renderLists()
   }

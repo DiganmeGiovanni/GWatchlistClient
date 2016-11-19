@@ -130,13 +130,11 @@ class Lists extends Component {
   }
 
   createListsJSX() {
-    if (this.state.lists.length == 0) {
+    if (this.state.lists.length === 0) {
+      console.log('Fetching lists')
 
-      if (this.props.loadLists) {
-
-        // Launch 'fetch lists' action
-        ListsActions.fetchListsNames(this.props.user.email)
-      }
+      // Launch 'fetch lists' action
+      ListsActions.fetchListsNames(this.props.user.email)
 
       return (
         <div className="row">
@@ -153,6 +151,8 @@ class Lists extends Component {
       )
     }
     else {
+      console.log('Rendering lists')
+
       var listsJSX = []
       for (var i = 0; i < this.state.lists.length; i++) {
         var list = this.state.lists[i]

@@ -1,9 +1,11 @@
 
 import EventEmmiter from "events";
 import LCConstants from "./LCConstants";
+import ListContentActions from './../listContents/ListContentActions'
 import listService from "./../services/ListService";
 
 let AppDispatcher = require('./../dispatcher/AppDispatcher')
+let toWatchConstants = require('./../constants/toWatchConstants')
 let CHANGE_EVENT = 'CH_EVENT_LIST_CONTENTS'
 
 // Store default state
@@ -53,6 +55,16 @@ class ListContentStore extends EventEmmiter {
     movie.watched = false
     _state.currentList.movies.push(movie)
     this.emitChange()
+  }
+
+  deleteCurrentList() {
+
+    // Send delete request to backend
+    listService.deleteList(_state.currentList.id)
+
+    // Go to personal list
+    let userEmail = toWatchConstants.userData.email
+    this.viewPersonalList(userEmail)
   }
 
   deleteMovie(movie) {
@@ -147,6 +159,10 @@ listContentStore.dispatchToken = AppDispatcher.register(action => {
   switch (action.type) {
     case LCConstants.ACTION_ADD_MOVIE:
       listContentStore.addMovieToCurrentList(action.movie)
+      break
+
+    case LCConstants.ACTION_DELETE_CURRENT_LIST:
+      listContentStore.deleteCurrentList()
       break
 
     case LCConstants.ACTION_DELETE_MOVIE:

@@ -66,6 +66,26 @@ class ListService {
     })
   }
 
+  deleteList(listId) {
+
+    // Target url
+    let url = apiUrls.DELETE_LIST + listId
+
+    // Prepare request paras
+    let reqConfig = {
+      url: url,
+      method: 'DELETE'
+    }
+
+    request(reqConfig, (err, response, body) => {
+      if (err) {
+        console.error(err)
+      } else if (response.statusCode === 204) {
+        console.log('List deleted successfully')
+      }
+    })
+  }
+
   postMovie(listId, movie) {
 
     // Add data to payload

@@ -11,6 +11,12 @@ let ListContentActions = {
     })
   },
 
+  deleteCurrentList() {
+    AppDispatcher.dispatch({
+      type: LCConstants.ACTION_DELETE_CURRENT_LIST
+    })
+  },
+
   deleteMovie(movie) {
     AppDispatcher.dispatch({
       type: LCConstants.ACTION_DELETE_MOVIE,

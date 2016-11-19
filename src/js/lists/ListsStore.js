@@ -42,6 +42,7 @@ class ListsStore extends EventEmmiter {
         console.error(err)
       } else {
         _state.lists = jResponse
+        console.log(jResponse)
         this.emitChange()
       }
     })

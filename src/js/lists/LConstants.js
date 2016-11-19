@@ -1,6 +1,7 @@
 
 let LConstans = {
 
+  ACTION_DELETE_LIST: 'ACTION_DELETE_LIST',
   ACTION_FETCH_LISTS_NAMES: 'FETCH_LISTS_NAMES',
   ACTION_POST_LIST: 'ACTION_POST_LIST',
   ACTION_RENDER_CREATE_LIST: 'ACTION_RENDER_CREATE_LIST',
@@ -13,6 +14,7 @@ let LConstans = {
 
 let baseApiUrl = 'http://localhost:8080/api/'
 let apiUrls = {
+  DELETE_LIST: baseApiUrl + 'movies/list/',
   FETCH_LIST: baseApiUrl + 'movies/list',
   FETCH_LISTS_NAMES: baseApiUrl + 'movies/lists',
   FETCH_PERSONAL_LIST: baseApiUrl + 'movies/list/personal',
