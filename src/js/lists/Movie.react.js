@@ -1,10 +1,12 @@
 
 import React from "react";
-import LCConstants from "./LCConstants";
-import YTPlayer from "./../youtubePlayer/YTPlayer.react";
+import LConstants from "./LConstants";
 import YTPlayerActions from "./../youtubePlayer/YTPlayerActions.react";
-import ListContentActions from "./ListContentActions";
+import ListsActions from "./ListsActions";
+import YTPlayer from "./../youtubePlayer/YTPlayer.react";
+
 let moment = require('moment')
+
 
 class Movie extends React.Component {
 
@@ -21,11 +23,6 @@ class Movie extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.playingTrailer) {
-      let trailerContainerId = 'modal-trailer-container-' + this.props.movie.tmdbId
-
-    }
-
     if (this.props.displayingDetails) {
       document.getElementById(this.props.movie.tmdbId + '').scrollIntoView()
       window.scrollBy(0, -70)
@@ -115,8 +112,8 @@ class Movie extends React.Component {
               <img
                 src={
                   this.props.displayingDetails
-                    ? LCConstants.tmdb.apiImages.MEDIUM + movie.posterPath
-                    : LCConstants.tmdb.apiImages.SMALL + movie.posterPath
+                    ? LConstants.WS_TMDB.IMG.MEDIUM + movie.posterPath
+                    : LConstants.WS_TMDB.IMG.SMALL + movie.posterPath
                 }
                 alt=''
                 className={movie.watched ? 'grayscaled-image' : ''}
@@ -263,7 +260,6 @@ class Movie extends React.Component {
   }
 
   constructTrailerModal() {
-
     return (
       this.props.displayingDetails
         ? <YTPlayer
@@ -279,22 +275,23 @@ class Movie extends React.Component {
 
   _onToggleDisplayDetails() {
     if (this.props.displayingDetails) {
-      ListContentActions.displayMovieDetails('')
+      ListsActions.displayMovieDetails('')
     } else {
-      ListContentActions.displayMovieDetails(this.props.movie.tmdbId)
+      ListsActions.displayMovieDetails(this.props.movie.tmdbId)
     }
   }
 
   _toggleWatched () {
     let movie = this.props.movie
     movie.watched = !movie.watched
-    ListContentActions.displayMovieDetails('')
-    ListContentActions.updateMovie(movie)
+
+    ListsActions.displayMovieDetails('')
+    ListsActions.updateMovie(movie)
   }
 
   deleteMovie () {
     let movie = this.props.movie
-    ListContentActions.deleteMovie(movie)
+    ListsActions.deleteMovie(movie)
   }
 }
 

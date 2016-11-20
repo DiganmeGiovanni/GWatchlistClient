@@ -1,5 +1,5 @@
 
-import {apiUrls} from "../lists/LConstants";
+import LConstants from "../lists/LConstants";
 let request = require('request')
 let GWConstants = require('./../constants/toWatchConstants')
 
@@ -8,7 +8,7 @@ class ListService {
 
   fetchList(ownerEmail, listId, callback) {
 
-    let url = apiUrls.FETCH_LIST
+    let url = LConstants.WS.LIST_GET
     url += '?owner_email=' + ownerEmail
     url += '&list_id=' + listId
 
@@ -20,7 +20,7 @@ class ListService {
 
   fetchListsNames(email, callback) {
 
-    let url = apiUrls.FETCH_LISTS_NAMES
+    let url = LConstants.WS.LIST_ALL
     url += '?owner_email=' + email
 
     fetch(url)
@@ -35,7 +35,7 @@ class ListService {
 
   fetchPersonalList(email, callback) {
 
-    let url = apiUrls.FETCH_PERSONAL_LIST
+    let url = LConstants.WS.LIST_PERSONAL
     url += '?owner_email=' + email
 
     fetch(url)
@@ -57,7 +57,7 @@ class ListService {
       }
     }
 
-    request.post(apiUrls.POST_LIST, payload, (err, response, body) => {
+    request.post(LConstants.WS.LIST_GET, payload, (err, response, body) => {
         if (err) {
           callback(err, null)
         } else {
@@ -69,7 +69,7 @@ class ListService {
   deleteList(listId) {
 
     // Target url
-    let url = apiUrls.DELETE_LIST + listId
+    let url = LConstants.WS.LIST + listId
 
     // Prepare request paras
     let reqConfig = {
@@ -93,7 +93,7 @@ class ListService {
     movie.addedByName = GWConstants.userData.name
 
     // Prepare target url
-    let url = apiUrls.POST_MOVIE + listId + '/movie'
+    let url = LConstants.WS.LIST + listId + '/movie'
 
     // Prepare request params
     let reqConfig = {
@@ -114,7 +114,7 @@ class ListService {
   updateMovie(listId, movie) {
 
     // Target url
-    let url = apiUrls.POST_MOVIE + listId + '/movie'
+    let url = LConstants.WS.LIST + listId + '/movie'
 
     // Prepare request paras
     let reqConfig = {
@@ -135,7 +135,7 @@ class ListService {
   deleteMovie(listId, movie) {
 
     // Target url
-    let url = apiUrls.POST_MOVIE + listId + '/movie'
+    let url = LConstants.WS.LIST + listId + '/movie'
 
     // Prepare request paras
     let reqConfig = {
@@ -162,7 +162,7 @@ class ListService {
       }
     }
 
-    request.post(apiUrls.SHARE_LIST, payload, (err, response, body) => {
+    request.post(LConstants.WS.LIST_SHARE, payload, (err, response, body) => {
       if (err) {
         callback(err, null)
       } else {

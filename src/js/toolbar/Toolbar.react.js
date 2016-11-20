@@ -1,8 +1,7 @@
 
 import React from "react";
-import ListContentStore from "./../listContents/ListContentStore";
-import ListActions from "./../lists/ListsActions";
-import ListContentActions from './../listContents/ListContentActions'
+import ListsStore from "./../lists/ListsStore";
+import ListsActions from "./../lists/ListsActions";
 import MovieFormActions from "./../movieForm/MovieFormActions";
 import Lists from "./../lists/Lists.react";
 import ListShare from "./../listShare/ListShare.react";
@@ -26,11 +25,11 @@ class Toolbar extends React.Component {
   }
 
   componentDidMount() {
-    ListContentStore.addChangeListener(this._onChange)
+    ListsStore.addChangeListener(this._onChange)
   }
 
   componentWillUnmount() {
-    ListContentStore.removeChangeListener(this._onChange)
+    ListsStore.removeChangeListener(this._onChange)
   }
 
   render() {
@@ -145,19 +144,18 @@ class Toolbar extends React.Component {
 
   _onChange() {
     this.setState({
-      displayShareBtn: !ListContentStore.getState().currentList.personalList
+      displayShareBtn: !ListsStore.getState().currentList.personalList
     })
   }
 
   deleteCurrentList() {
-    ListContentActions.deleteCurrentList()
-    ListActions.fetchListsNames(this.props.user.email)
+    ListsActions.deleteCurrentList()
   }
 
   onClickListenerBtnLists() {
     $('#modal-lists').modal('show')
 
-    ListActions.renderLists()
+    ListsActions.renderLists()
   }
 
   onClickListenerBtnListShare() {

@@ -1,13 +1,12 @@
 
-import React, {Component} from 'react'
+import React from "react";
+import LConstants from "./LConstants";
+import ListsActions from "./ListsActions";
+import ListsStore from "./ListsStore";
+import List from "./List.react";
 
-import LConstants from './LConstants'
-import ListsActions from './ListsActions'
-import ListContentActions from './../listContents/ListContentActions'
-import ListsStore from './ListsStore'
-import List from './List.react'
 
-class Lists extends Component {
+class Lists extends React.Component {
 
   constructor(props) {
     super(props)
@@ -29,10 +28,10 @@ class Lists extends Component {
 
   render() {
     switch (this.state.currentView) {
-      case LConstants.VIEW_LISTS:
+      case LConstants.VIEW.LIST_ALL:
         return this.renderLists()
 
-      case LConstants.VIEW_CREATE_LIST:
+      case LConstants.VIEW.LIST_CREATE:
         return this.renderCreateList()
     }
   }
@@ -131,7 +130,6 @@ class Lists extends Component {
 
   createListsJSX() {
     if (this.state.lists.length === 0) {
-      console.log('Fetching lists')
 
       // Launch 'fetch lists' action
       ListsActions.fetchListsNames(this.props.user.email)
@@ -151,7 +149,6 @@ class Lists extends Component {
       )
     }
     else {
-      console.log('Rendering lists')
 
       var listsJSX = []
       for (var i = 0; i < this.state.lists.length; i++) {
@@ -208,7 +205,7 @@ class Lists extends Component {
   }
 
   onListChosen(listId) {
-    ListContentActions.fetchList(this.props.user.email, listId)
+    ListsActions.fetchList(this.props.user.email, listId)
 
     // Hide lists modal
     $('#modal-lists').modal('hide')

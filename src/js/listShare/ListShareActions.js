@@ -1,12 +1,12 @@
 
 let AppDispatcher = require('./../dispatcher/AppDispatcher')
-import LCConstants from './../listContents/LCConstants'
+import LConstants from "./../lists/LConstants";
 
 let ListShareActions = {
 
   shareList(email) {
     AppDispatcher.dispatch({
-      type: LCConstants.ACTION_SHARE_LIST,
+      type: LConstants.ACTIONS.LIST_SHARE,
       email: email,
     })
   }

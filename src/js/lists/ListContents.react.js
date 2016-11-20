@@ -1,9 +1,9 @@
 
 import React from "react";
-import ListContentActions from "./ListContentActions";
-import ListContentStore from "./ListContentStore";
+import ListsStore from "./ListsStore";
 import Movie from "./Movie.react";
-let ToWatchConstants = require('./../constants/toWatchConstants')
+
+let toWatchConstants = require('./../constants/toWatchConstants')
 
 
 class ListContents extends React.Component {
@@ -12,19 +12,19 @@ class ListContents extends React.Component {
     super(props)
     this._onChange = this._onChange.bind(this)
 
-    this.state = ListContentStore.getState()
+    this.state = ListsStore.getState()
   }
 
   componentDidMount() {
-    ListContentStore.addChangeListener(this._onChange)
+    ListsStore.addChangeListener(this._onChange)
 
     // Fetch personal list by default
-    let email = ToWatchConstants.userData.email
-    ListContentActions.fetchPersonalList(email)
+    let email = toWatchConstants.userData.email
+    ListsStore.viewPersonalList(email)
   }
 
   componentWillUnmount() {
-    ListContentStore.removeChangeListener(this._onChange)
+    ListsStore.removeChangeListener(this._onChange)
   }
 
   render() {
@@ -46,7 +46,7 @@ class ListContents extends React.Component {
   //////////////////////////////////////////////////////////////////////////////
 
   _onChange() {
-    this.setState(ListContentStore.getState())
+    this.setState(ListsStore.getState())
   }
 
   constructMoviesJSX() {

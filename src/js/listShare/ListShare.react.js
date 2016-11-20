@@ -1,8 +1,7 @@
 
-import React from 'react'
-
-import ListContentStore from './../listContents/ListContentStore'
-import ListShareActions from './ListShareActions'
+import React from "react";
+import ListsStore from "./../lists/ListsStore";
+import ListShareActions from "./ListShareActions";
 
 
 class ListShare extends React.Component {
@@ -14,11 +13,11 @@ class ListShare extends React.Component {
     this.isSharedWith = this.isSharedWith.bind(this)
     this.onClickBtnShare = this.onClickBtnShare.bind(this)
 
-    this.state = ListContentStore.getState()
+    this.state = ListsStore.getState()
   }
 
   componentDidMount() {
-    ListContentStore.addChangeListener(this._onChange)
+    ListsStore.addChangeListener(this._onChange)
 
     // Clear form on modal close
     $('#modal-list-share').on('hidden.bs.modal', () => {
@@ -29,7 +28,7 @@ class ListShare extends React.Component {
   }
 
   componentWillUnmount() {
-    ListContentStore.removeChangeListener(this._onChange)
+    ListsStore.removeChangeListener(this._onChange)
   }
 
   render() {
@@ -108,7 +107,7 @@ class ListShare extends React.Component {
   //////////////////////////////////////////////////////////////////////////////
 
   _onChange() {
-    this.setState(ListContentStore.getState())
+    this.setState(ListsStore.getState())
   }
 
   constructEmailsJSX(emails) {

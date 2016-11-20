@@ -5,11 +5,10 @@
  */
 
 var React     = require('react')
-var WatchList = require('./WatchList.react')
 
 //var Toolbar      = require('./Toolbar.react')
-import Toolbar from './../toolbar/Toolbar.react'
-import ListContents from './../listContents/ListContents.react'
+import Toolbar from "./../toolbar/Toolbar.react";
+import ListContents from "./../lists/ListContents.react";
 var TWConstants = require('../constants/toWatchConstants')
 var LandingPage  = require('./LandingPage.react')
 var ToWatchStore = require('../stores/ToWatchStore')

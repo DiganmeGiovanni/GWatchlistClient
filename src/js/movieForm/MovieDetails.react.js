@@ -1,7 +1,7 @@
-import React from 'react'
-import MovieFormActions from './MovieFormActions'
-import ListContentActions from './../listContents/ListContentActions'
-import ListContentStore from './../listContents/ListContentStore'
+import React from "react";
+import MovieFormActions from "./MovieFormActions";
+import ListsActions from "./../lists/ListsActions";
+import ListsStore from "./../lists/ListsStore";
 
 class MovieDetails extends React.Component {
 
@@ -169,7 +169,7 @@ class MovieDetails extends React.Component {
   }
 
   addMovieToList(movie) {
-    ListContentActions.addMovieToCurrentList(movie)
+    ListsActions.addMovieToCurrentList(movie)
     $('#modal-movie-form').modal('hide')
   }
 
@@ -180,7 +180,7 @@ class MovieDetails extends React.Component {
    */
   addedPreviously(movie) {
     let addedPreviously = false
-    for (let addedMovie of ListContentStore.getState().currentList.movies) {
+    for (let addedMovie of ListsStore.getState().currentList.movies) {
       if (+addedMovie.tmdbId === +movie.tmdbId) {
         addedPreviously = true
         break
