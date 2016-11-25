@@ -1,11 +1,9 @@
-
 import EventEmmiter from "events";
 import LConstants from "./LConstants";
 import listService from "./../services/ListService";
 
 let AppDispatcher = require('./../dispatcher/AppDispatcher')
 let toWatchConstants = require('./../constants/toWatchConstants')
-
 
 let CHANGE_EVENT = 'CHANGE_EVENT'
 
@@ -65,25 +63,50 @@ class ListsStore extends EventEmmiter {
   deleteCurrentList() {
     let listId = _state.currentList.id
 
-    // Send delete request to backend
-    listService.deleteList(listId)
+    // Check if current is personal list
+    if (_state.currentList.personalList) {
+      x0p(
+        'Impossible action',
+        'Personal list can not be removed',
+        'error',
+        false
+      );
+
+      return;
+    }
 
     //
-    // Remove deleted list from state to update rendered lists
+    // Search for list to delete
     let index = -1
     for (let i = 0; i < _state.lists.length; i++) {
       if (_state.lists[i].id === listId) {
         index = i
       }
     }
-    if (index > 0) {
-      _state.lists.splice(index, 1)
-      this.emitChange()
-    }
 
-    // Go to personal list
-    let userEmail = toWatchConstants.userData.email
-    this.viewPersonalList(userEmail)
+    if (index > 0) {
+
+      // Request confirmation from user
+      x0p(
+        'Are you sure?',
+        'The list will be deleted permanently from the list',
+        'warning'
+      ).then(data => {
+        if (data.button === 'warning') {
+
+          // Remove from local lists array
+          _state.lists.splice(index, 1)
+          this.emitChange()
+
+          // Send delete request to backend
+          listService.deleteList(listId)
+
+          // Go to personal list
+          let userEmail = toWatchConstants.userData.email
+          this.viewPersonalList(userEmail)
+        }
+      })
+    }
   }
 
   deleteMovie(movie) {
@@ -102,13 +125,23 @@ class ListsStore extends EventEmmiter {
 
     if (movieIndex >= 0) {
 
-      // Delete movie from current list
-      // before delete on backend to improve UX
-      _state.currentList.movies.splice(movieIndex, 1)
-      this.emitChange()
+      // Request confirmation from user
+      x0p(
+        'Are you sure?',
+        '\'' + movie.title + '\' will be deleted permanently from the list',
+        'warning'
+      ).then(data => {
+        if (data.button === 'warning') {
 
-      // Send update request to backend
-      listService.deleteMovie(listId, movie)
+          // Delete movie from current list
+          // before delete on backend to improve UX
+          _state.currentList.movies.splice(movieIndex, 1)
+          this.emitChange()
+
+          // Send update request to backend
+          listService.deleteMovie(listId, movie)
+        }
+      })
     }
   }
 

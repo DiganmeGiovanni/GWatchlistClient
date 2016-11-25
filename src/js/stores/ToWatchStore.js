@@ -7,7 +7,6 @@
 var AppDispatcher    = require('../dispatcher/AppDispatcher')
 var EventEmitter     = require('events').EventEmitter
 var objAssign        = require('object-assign')
-var alertify         = require('alertify.js')()
 
 var ToWatchConstants = require('../constants/toWatchConstants')
 var movieListService = require('../services/movieListService')
@@ -31,8 +30,8 @@ var currentList = {
 }
 
 // Alertify setup
-alertify.theme('bootstrap')
-alertify.logPosition("bottom right")
+/*alertify.theme('bootstrap')
+alertify.logPosition("bottom right")*/
 
 
 var ToWatchStore = objAssign({}, EventEmitter.prototype, {

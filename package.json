@@ -32,7 +32,6 @@
     "webpack-dev-server": "^1.12.1"
   },
   "dependencies": {
-    "alertify.js": "^1.0.12",
     "flux": "^2.1.1",
     "moment": "^2.14.1",
     "object-assign": "^4.1.0",
