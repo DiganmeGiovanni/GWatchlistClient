@@ -1,0 +1,18 @@
+
+let PConstants = {
+
+  ACTIONS: {
+    POST_PREFERENCES: 'POST_PREFERENCES'
+  },
+
+  THEMES: {
+
+    BLUE_DARK: 'BLUE_DARK',
+    PINK_DARK: 'PINK_DARK',
+    GRADIENT_BLUE_DARK: 'GRADIENT_BLUE_DARK',
+    GRADIENT_PINK_DARK: 'GRADIENT_PINK_DARK'
+  }
+
+}
+
+export default PConstants

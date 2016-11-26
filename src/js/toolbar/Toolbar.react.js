@@ -6,6 +6,7 @@ import MovieFormActions from "./../movieForm/MovieFormActions";
 import Lists from "./../lists/Lists.react";
 import ListShare from "./../listShare/ListShare.react";
 import MovieForm from "./../movieForm/MovieForm.react";
+import Preferences from './../preferences/Preferences.react'
 
 
 class Toolbar extends React.Component {
@@ -98,7 +99,7 @@ class Toolbar extends React.Component {
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a href="#" onClick={this.onClickListenerBtnPreferences}>
                       <span className="glyphicon glyphicon-cog"></span>
                       <span>&nbsp;&nbsp;Preferences</span>
                     </a>
@@ -136,6 +137,9 @@ class Toolbar extends React.Component {
 
         {/* Modal to add a movie to list */}
         <MovieForm />
+
+        {/* Modal to edit user preferences */}
+        <Preferences />
       </div>
     )
   }
@@ -165,6 +169,10 @@ class Toolbar extends React.Component {
   onClickListenerBtnAddMovie() {
     MovieFormActions.startAddProcess()
     $('#modal-movie-form').modal('show')
+  }
+
+  onClickListenerBtnPreferences() {
+    $('#modal-preferences').modal('show')
   }
 }
 
