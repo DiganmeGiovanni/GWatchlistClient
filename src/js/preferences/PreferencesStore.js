@@ -4,7 +4,6 @@ import PConstants from './PConstants'
 import userService from '../services/UserService'
 
 let AppDispatcher = require('../dispatcher/AppDispatcher')
-let ToWatchConstants = require('../constants/toWatchConstants')
 let CHANGE_EVENT = 'CHANGE_EVENT'
 
 

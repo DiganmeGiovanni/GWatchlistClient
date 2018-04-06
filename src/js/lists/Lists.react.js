@@ -139,7 +139,7 @@ class Lists extends React.Component {
           <div className="col-xs-12">
             <div className="text-center">
               <br/>
-              <span className="fa fa-spin fa-3x fa-spinner"></span>
+              <span className="fa fa-spin fa-3x fa-spinner"/>
               <br/><br/>
 
               <span>Fetching your lists</span>

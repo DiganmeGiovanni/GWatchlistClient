@@ -1,20 +1,19 @@
 
 import React from 'react'
-let UserActions = require('../actions/UserActions')
+import userActions from '../watchlist/UserActions'
 
 class LandingPage extends React.Component {
 
   componentDidMount() {
-    this.renderGoogleSigninButton()
+    this.renderGoogleSignInButton()
   }
 
-  displayAnimatedLoadProcess() {
+  static displayAnimatedLoadProcess() {
     $('#container-loading').removeClass('hidden');
     $('#container-google-signin').addClass('hidden');
   }
 
-  renderGoogleSigninButton() {
-    var self = this
+  renderGoogleSignInButton() {
 
     gapi.signin2.render('g-signin2-custom', {
       'scope': 'profile email',
@@ -23,18 +22,19 @@ class LandingPage extends React.Component {
       'longtitle': true,
       'theme': 'dark',
       'onsuccess': function (googleUser) {
-        self.displayAnimatedLoadProcess()
+        LandingPage.displayAnimatedLoadProcess()
 
-        var profile = googleUser.getBasicProfile()
-        var email = profile.getEmail()
-        var name  = profile.getName()
+        let profile = googleUser.getBasicProfile()
+        let email   = profile.getEmail()
+        let name    = profile.getName()
 
-        console.log(email + ' just loged in [' + name + ']')
-        UserActions.loginUser(name, email)
+        userActions.loginUser(email, name)
       },
       'onfailure': function (error) {
         console.error('Google login just fail')
-        UserActions.logoutUser()
+        console.error(error)
+
+        userActions.logoutUser()
       }
     });
   }
@@ -76,4 +76,4 @@ class LandingPage extends React.Component {
   }
 }
 
-module.exports = LandingPage
+export default LandingPage

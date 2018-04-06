@@ -1,10 +1,10 @@
 
-var React    = require('react')
-var ReactDOM = require('react-dom')
+let React = require('react');
+let ReactDOM = require('react-dom');
 
-let GWatchlistApp = require('./components/GWatchlistApp.react')
+import Watchlist from './watchlist/Watchlist.react'
 
 ReactDOM.render(
-  <GWatchlistApp/>,
-  document.getElementById('gwatchlist-app-container')
+  <Watchlist/>,
+  document.getElementById('app-container')
 )

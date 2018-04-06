@@ -3,6 +3,7 @@ import React from 'react'
 import PConstants from './PConstants'
 import PreferencesStore from './PreferencesStore'
 import preferencesActions from './PreferencesActions'
+import UserStore from './../watchlist/UserStore'
 
 var ToWatchActions = require('../actions/ToWatchActions')
 var ToWatchConstants = require('../constants/toWatchConstants')
@@ -12,6 +13,9 @@ class Preferences extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      user: UserStore.getState().user
+    }
 
     this._resetForm = this._resetForm.bind(this)
     this._takeValuesFromUserData = this._takeValuesFromUserData.bind(this)
@@ -19,11 +23,13 @@ class Preferences extends React.Component {
 
   componentDidMount() {
     PreferencesStore.addChangeListener(this._onChange)
+    UserStore.addChangeListener(this._onChange)
     this._takeValuesFromUserData()
   }
 
   componentWillUnmount () {
     PreferencesStore.removeChangeListener(this._onChange)
+    UserStore.removeChangeListener(this._onChange)
   }
 
   render() {
@@ -84,14 +90,16 @@ class Preferences extends React.Component {
   //////////////////////////////////////////////////////////////////////////////////////////////////
 
   _onChange() {
-
+    this.setState({
+      user: UserStore.getState().user
+    })
   }
 
   _resetForm() {
     this._takeValuesFromUserData()
 
     // Reset to selected theme
-    switch (ToWatchConstants.userData.preferences.theme) {
+    switch (this.state.user.preferences.theme) {
       case PConstants.THEMES.BLUE_DARK:
         document.getElementById('theme-stylesheet').setAttribute('href', './src/css/themes/blue-dark.css?r=' + Math.random())
         break
@@ -124,7 +132,7 @@ class Preferences extends React.Component {
   }
 
   _takeValuesFromUserData() {
-    var userPreferences = ToWatchConstants.userData.preferences
+    var userPreferences = this.state.user.preferences
 
     if (userPreferences.notifyOnListShared) {
       document.getElementById('cb-list-shared').checked = true

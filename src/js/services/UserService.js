@@ -6,6 +6,23 @@ let ToWatchConstants= require('../constants/toWatchConstants')
 
 class UserService {
 
+  loginUser(name, email, callback) {
+
+    var params = {
+      method: 'GET',
+      url: SConstants.WS.USER + "login",
+      qs: {
+        name: name,
+        email: email
+      },
+      withCredentials: false
+    }
+
+    request(params, function (err, res, body) {
+      callback(err, body)
+    })
+  }
+
   updatePreferences(callback) {
     let url = SConstants.WS.USER
     url += ToWatchConstants.userData.id
